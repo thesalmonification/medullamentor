@@ -123,8 +123,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   //updateImage(details.delta.dy),
                   child: Container(color: Colors.blue.withOpacity(0)))),
           // Front image
+          Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: FloatingActionButton(
+                    onPressed: () {}, child: const Icon(Icons.navigate_before)),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                    onPressed: () {}, child: const Icon(Icons.navigate_next)),
+              ),
+            ],
+          )
         ],
       ),
+
+      /*
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           setState(() {
@@ -133,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
