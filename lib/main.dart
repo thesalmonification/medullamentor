@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,18 +49,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  bool _isvisible = true;
+  NumberFormat formatter = NumberFormat("00000");
 
-  void _incrementCounter() {
+  bool _isvisible = true;
+  double x = 0.0;
+  double y = 0.0;
+  int imageAxialNumber = 15;
+
+  void updateAxialImage(double dy) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      //Random.nextInt(n) returns random integer from 0 to n-1
+      if (dy > 0) {
+        imageAxialNumber = (imageAxialNumber + 1) % 30;
+      }
+      if (dy < 0) {
+        imageAxialNumber = (imageAxialNumber - 1) % 30;
+      }
     });
+  }
+
+  void _updateLocation(PointerEvent details) {
+    setState(() {
+      x = details.position.dx;
+      y = details.position.dy;
+    });
+    print(x);
+    print(y);
   }
 
   @override
@@ -80,22 +95,33 @@ class _MyHomePageState extends State<MyHomePage> {
         alignment: Alignment.center,
         children: [
           Image.network(
-            'assets/red/image_00011.png',
+            'assets/red/image_${formatter.format(imageAxialNumber)}.png',
             fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
             alignment: Alignment.center,
-          ), // Back image
+          ),
           Visibility(
             visible: _isvisible,
             child: Image.network(
-              'assets/redlabels/image_00011.png',
+              'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
               alignment: Alignment.center,
             ),
-          )
+          ),
+          MouseRegion(
+              onHover: _updateLocation,
+              child: GestureDetector(
+                  onTap: () => updateAxialImage(1.0),
+                  onVerticalDragStart: (details) => {},
+                  onVerticalDragUpdate: (details) => {
+                        if (details.delta.distance > 0)
+                          {updateAxialImage(details.delta.dy)}
+                      },
+                  //updateImage(details.delta.dy),
+                  child: Container(color: Colors.blue.withOpacity(0)))),
           // Front image
         ],
       ),
