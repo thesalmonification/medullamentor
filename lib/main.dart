@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:image/image.dart' as img;
 
 void main() {
   runApp(const MyApp());
@@ -73,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
       x = details.position.dx;
       y = details.position.dy;
     });
+
     print(x);
     print(y);
   }
@@ -96,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Image.network(
             'assets/red/image_${formatter.format(imageAxialNumber)}.png',
-            fit: BoxFit.cover,
+            fit: BoxFit.cover, //cover
             height: double.infinity,
             width: double.infinity,
             alignment: Alignment.center,
@@ -121,19 +123,40 @@ class _MyHomePageState extends State<MyHomePage> {
                           {updateAxialImage(details.delta.dy)}
                       },
                   //updateImage(details.delta.dy),
-                  child: Container(color: Colors.blue.withOpacity(0)))),
+                  child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      color: Colors.blue.withOpacity(0)))),
           // Front image
           Stack(
             children: <Widget>[
               Align(
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.centerLeft,
                 child: FloatingActionButton(
-                    onPressed: () {}, child: const Icon(Icons.navigate_before)),
+                    onPressed: () {
+                      updateAxialImage(-1);
+                    },
+                    child: const Icon(Icons.navigate_before)),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: FloatingActionButton(
+                    onPressed: () {
+                      updateAxialImage(1);
+                    },
+                    child: const Icon(Icons.navigate_next)),
               ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                    onPressed: () {}, child: const Icon(Icons.navigate_next)),
+                    onPressed: () {
+                      setState(() {
+                        _isvisible = !_isvisible;
+                      });
+                    },
+                    child: (_isvisible)
+                        ? Icon(Icons.hide_image)
+                        : Icon(Icons.image)),
               ),
             ],
           )
