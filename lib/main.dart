@@ -340,10 +340,14 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
               ),
             ],
           ),
-          Text(
-            structure,
-            style: TextStyle(color: Colors.white),
-          )
+          Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                  padding: EdgeInsets.all(50),
+                  child: Text(
+                    structure,
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  )))
         ],
       ),
 
