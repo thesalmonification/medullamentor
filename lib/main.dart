@@ -5,28 +5,20 @@ import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
-List _items = [];
-
-Map map = Map();
-Map map1 = Map();
+List<Map> json_data = [];
 
 // Fetch content from the json file
 Future<void> readJson() async {
-  print('hello');
-  String response = await rootBundle.loadString('redjson/image_00015.json');
-  final data = await json.decode(response);
+  NumberFormat formatter = NumberFormat("00000");
 
-  print(data.runtimeType);
-  print(data['452']['452']);
-  //for (var i = 0; i < 452; i++) {
-  //  for (var j = 0; j < 652; i++) {
-  //    _items.add(data[i][j].toString());
-  //  }
-  //}
+  for (var i = 0; i < 31; i++) {
+    String response = await rootBundle
+        .loadString('redjson/image_${formatter.format(i)}.json');
+    final data = await json.decode(response);
+    json_data.add(data);
+  }
 
-  map = data;
-
-  //_items = data[648];
+  print(json_data[0]["648"]["23"]);
 }
 
 void main() {
@@ -233,6 +225,8 @@ class AxialBrainstem extends StatefulWidget {
 class _AxialBrainstemState extends State<AxialBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
+  String structure = "";
+
   bool _isvisible = true;
   double x = 0.0;
   double y = 0.0;
@@ -241,8 +235,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   void updateAxialImage(double dy) {
     setState(() {
       //Random.nextInt(n) returns random integer from 0 to n-1
-      print(_items);
-      print(map["423"]);
       if (dy > 0) {
         imageAxialNumber = (imageAxialNumber + 1) % 30;
       }
@@ -254,12 +246,14 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
   void _updateLocation(PointerEvent details) {
     setState(() {
-      x = details.position.dx;
-      y = details.position.dy;
+      x = details.position.dx / MediaQuery.of(context).size.height * 652;
+      y = details.position.dy / MediaQuery.of(context).size.width * 456;
+      structure = json_data[imageAxialNumber][x.toInt().toString()]
+          [y.toInt().toString()];
     });
-    //print(data[x]);
-    //print(x);
-    //print(y);
+    //print([x, y]);
+    print(json_data[imageAxialNumber][x.toInt().toString()]
+        [y.toInt().toString()]);
   }
 
   @override
@@ -345,6 +339,10 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                         : Icon(Icons.image)),
               ),
             ],
+          ),
+          Text(
+            structure,
+            style: TextStyle(color: Colors.white),
           )
         ],
       ),
