@@ -217,6 +217,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
 class AxialBrainstem extends StatefulWidget {
   AxialBrainstem({super.key});
+  //So will try async function here...
 
   @override
   State<AxialBrainstem> createState() => _AxialBrainstemState();
@@ -246,10 +247,18 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
   void _updateLocation(PointerEvent details) {
     setState(() {
+      print('called');
       x = details.position.dx / MediaQuery.of(context).size.height * 652;
       y = details.position.dy / MediaQuery.of(context).size.width * 456;
-      structure = json_data[imageAxialNumber][x.toInt().toString()]
-          [y.toInt().toString()];
+      if (json_data[imageAxialNumber][x.toInt().toString()]
+              [y.toInt().toString()] ==
+          "Material93") {
+        structure = "";
+      } else {
+        structure = json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()];
+      }
+      ;
     });
     //print([x, y]);
     print(json_data[imageAxialNumber][x.toInt().toString()]
