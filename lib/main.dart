@@ -293,12 +293,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
           MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
-                  onTap: () => updateAxialImage(1.0),
-                  onVerticalDragStart: (details) => {},
-                  onVerticalDragUpdate: (details) => {
-                        if (details.delta.distance > 0)
-                          {updateAxialImage(details.delta.dy)}
-                      },
+                  onTap: () => _updateLocation,
+
                   //updateImage(details.delta.dy),
                   child: Container(
                       height: double.infinity,
