@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_cube/flutter_cube.dart';
@@ -130,33 +131,40 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: Container(
                 color: Colors.black,
                 child: Center(
-                    child: FractionallySizedBox(
-                  widthFactor: 1.0,
-                  alignment: Alignment.topCenter,
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(children: [
-                        TextSpan(
-                            text: 'RadiQuiz\n',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 90,
-                                fontStyle: FontStyle.italic)),
-                        TextSpan(
-                            text: 'Explore Radiological Dasets\n',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 50)),
-                      ])),
-
-                  /*Text(
-                    "RadiQuiz\nExplore Radiological Datasets\nBased on the Visible Human Project\n",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 52,
-                        color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),*/
-                )),
+                  child: FractionallySizedBox(
+                    widthFactor: 1.0,
+                    alignment: Alignment.topCenter,
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: 'RadiQuiz\n',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 90,
+                                  fontStyle: FontStyle.italic)),
+                          TextSpan(
+                              text: 'Explore Radiological Dasets\n',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 50)),
+                          TextSpan(
+                              text: 'Get Started\n',
+                              style: TextStyle(
+                                  //background: paint,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 34,
+                                  color: Colors.black),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AxialBrainstem()),
+                                  );
+                                }),
+                        ])),
+                  ),
+                ),
               ),
             ),
             Expanded(
