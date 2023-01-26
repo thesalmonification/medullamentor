@@ -255,9 +255,11 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
   void _updateLocation(PointerEvent details) {
     setState(() {
-      print('called');
-      x = details.position.dx / MediaQuery.of(context).size.height * 652;
-      y = details.position.dy / MediaQuery.of(context).size.width * 456;
+      x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
+      y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
+
+      print([x, y]);
+
       if (json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
@@ -282,32 +284,39 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text('Axial Brainstem'),
-      ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Image.network(
-            'assets/red/image_${formatter.format(imageAxialNumber)}.png',
-            fit: BoxFit.cover, //cover
-            height: double.infinity,
-            width: double.infinity,
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text('Axial Brainstem'),
+        ),
+        body: SizedBox.expand(
+            child: Container(
+          color: Colors.black,
+          child: Stack(
             alignment: Alignment.center,
-          ),
-          Visibility(
-            visible: _isvisible,
-            child: Image.network(
-              'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-              fit: BoxFit.cover,
-              height: double.infinity,
-              width: double.infinity,
-              alignment: Alignment.center,
-            ),
-          ),
-          MouseRegion(
+            children: [
+              MouseRegion(
+                  onHover: _updateLocation,
+                  child: Image.network(
+                    'assets/red/image_${formatter.format(imageAxialNumber)}.png',
+                    fit: BoxFit.fitWidth, //cover
+                    //height: double.infinity,
+                    //width: double.infinity,
+                    alignment: Alignment.center,
+                  )),
+              MouseRegion(
+                  onHover: _updateLocation,
+                  child: Visibility(
+                    visible: _isvisible,
+                    child: Image.network(
+                      'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),
+                  )),
+              /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
                   onTap: () => _updateLocation,
@@ -316,55 +325,55 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                   child: Container(
                       height: double.infinity,
                       width: double.infinity,
-                      color: Colors.blue.withOpacity(0)))),
-          // Front image
-          Stack(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: FloatingActionButton(
-                    heroTag: "btn1",
-                    onPressed: () {
-                      updateAxialImage(-1);
-                    },
-                    child: const Icon(Icons.navigate_before)),
+                      color: Colors.blue.withOpacity(0)))),*/
+              // Front image
+              Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FloatingActionButton(
+                        heroTag: "btn1",
+                        onPressed: () {
+                          updateAxialImage(-1);
+                        },
+                        child: const Icon(Icons.navigate_before)),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: FloatingActionButton(
+                        heroTag: 'btn2',
+                        onPressed: () {
+                          updateAxialImage(1);
+                        },
+                        child: const Icon(Icons.navigate_next)),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                        heroTag: 'btn3',
+                        onPressed: () {
+                          setState(() {
+                            _isvisible = !_isvisible;
+                          });
+                        },
+                        child: (_isvisible)
+                            ? Icon(Icons.hide_image)
+                            : Icon(Icons.image)),
+                  ),
+                ],
               ),
               Align(
-                alignment: Alignment.centerRight,
-                child: FloatingActionButton(
-                    heroTag: 'btn2',
-                    onPressed: () {
-                      updateAxialImage(1);
-                    },
-                    child: const Icon(Icons.navigate_next)),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FloatingActionButton(
-                    heroTag: 'btn3',
-                    onPressed: () {
-                      setState(() {
-                        _isvisible = !_isvisible;
-                      });
-                    },
-                    child: (_isvisible)
-                        ? Icon(Icons.hide_image)
-                        : Icon(Icons.image)),
-              ),
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                      padding: EdgeInsets.all(50),
+                      child: Text(
+                        structure,
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )))
             ],
           ),
-          Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                  padding: EdgeInsets.all(50),
-                  child: Text(
-                    structure,
-                    style: TextStyle(color: Colors.white, fontSize: 30),
-                  )))
-        ],
-      ),
 
-      /*
+          /*
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           setState(() {
@@ -374,6 +383,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),*/ // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        )));
   }
 }
