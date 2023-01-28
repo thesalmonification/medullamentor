@@ -6,20 +6,30 @@ import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
-List<Map> json_data = [];
+List<Map> red_json_data = [];
+List<Map> green_json_data = [];
+List<Map> yellow_json_data = [];
 
 // Fetch content from the json file
 Future<void> readJson() async {
   NumberFormat formatter = NumberFormat("00000");
 
   for (var i = 0; i < 31; i++) {
-    String response = await rootBundle
+    String red_response = await rootBundle
         .loadString('redjson/image_${formatter.format(i)}.json');
-    final data = await json.decode(response);
-    json_data.add(data);
+    String green_response = await rootBundle
+        .loadString('greenjson/image_${formatter.format(i)}.json');
+    String yellow_response = await rootBundle
+        .loadString('yellowjson/image_${formatter.format(i)}.json');
+    final red_data = await json.decode(red_response);
+    final green_data = await json.decode(green_response);
+    final yellow_data = await json.decode(yellow_response);
+    green_json_data.add(green_data);
+    red_json_data.add(red_data);
+    yellow_json_data.add(yellow_data);
   }
 
-  print(json_data[0]["648"]["23"]);
+  //print(red_json_data[0]["648"]["23"]);
 }
 
 void main() {
@@ -52,7 +62,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RadiQuiz',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -215,6 +225,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               },
             ),
             Divider(),
+            ListTile(
+              title: const Text('Coronal Brainstem'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CoronalBrainstem()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text('Saggital Brainstem'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
+                );
+              },
+            ),
+            Divider(),
           ],
         ),
       ),
@@ -258,21 +288,21 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
       y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
 
-      print([x, y]);
+      //print([x, y]);
 
-      if (json_data[imageAxialNumber][x.toInt().toString()]
+      if (red_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
         structure = "";
       } else {
-        structure = json_data[imageAxialNumber][x.toInt().toString()]
+        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()];
       }
       ;
     });
     //print([x, y]);
-    print(json_data[imageAxialNumber][x.toInt().toString()]
-        [y.toInt().toString()]);
+    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+    //    [y.toInt().toString()]);
   }
 
   @override
@@ -310,6 +340,334 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                     visible: _isvisible,
                     child: Image.network(
                       'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),
+                  )),
+              /*MouseRegion(
+              onHover: _updateLocation,
+              child: GestureDetector(
+                  onTap: () => _updateLocation,
+
+                  //updateImage(details.delta.dy),
+                  child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      color: Colors.blue.withOpacity(0)))),*/
+              // Front image
+              Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FloatingActionButton(
+                        heroTag: "btn1",
+                        onPressed: () {
+                          updateAxialImage(-1);
+                        },
+                        child: const Icon(Icons.navigate_before)),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: FloatingActionButton(
+                        heroTag: 'btn2',
+                        onPressed: () {
+                          updateAxialImage(1);
+                        },
+                        child: const Icon(Icons.navigate_next)),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                        heroTag: 'btn3',
+                        onPressed: () {
+                          setState(() {
+                            _isvisible = !_isvisible;
+                          });
+                        },
+                        child: (_isvisible)
+                            ? Icon(Icons.hide_image)
+                            : Icon(Icons.image)),
+                  ),
+                ],
+              ),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                      padding: EdgeInsets.all(50),
+                      child: Text(
+                        structure,
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )))
+            ],
+          ),
+
+          /*
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() {
+          setState(() {
+            _isvisible = !_isvisible;
+          });
+        }),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
+        )));
+  }
+}
+
+class CoronalBrainstem extends StatefulWidget {
+  CoronalBrainstem({super.key});
+  //So will try async function here...
+
+  @override
+  State<CoronalBrainstem> createState() => _CoronalBrainstemState();
+}
+
+class _CoronalBrainstemState extends State<CoronalBrainstem> {
+  NumberFormat formatter = NumberFormat("00000");
+
+  String structure = "";
+
+  bool _isvisible = true;
+  double x = 0.0;
+  double y = 0.0;
+  int imageAxialNumber = 15;
+
+  void updateAxialImage(double dy) {
+    setState(() {
+      //Random.nextInt(n) returns random integer from 0 to n-1
+      if (dy > 0) {
+        imageAxialNumber = (imageAxialNumber + 1) % 30;
+      }
+      if (dy < 0) {
+        imageAxialNumber = (imageAxialNumber - 1) % 30;
+      }
+    });
+  }
+
+  void _updateLocation(PointerEvent details) {
+    setState(() {
+      x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
+      y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
+
+      //print([x, y]);
+
+      if (green_json_data[imageAxialNumber][x.toInt().toString()]
+              [y.toInt().toString()] ==
+          "Material93") {
+        structure = "";
+      } else {
+        structure = green_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()];
+      }
+      ;
+    });
+    //print([x, y]);
+    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+    //    [y.toInt().toString()]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text('Coronal Brainstem'),
+        ),
+        body: SizedBox.expand(
+            child: Container(
+          color: Colors.black,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              MouseRegion(
+                  onHover: _updateLocation,
+                  child: Image.network(
+                    'assets/green/image_${formatter.format(imageAxialNumber)}.png',
+                    fit: BoxFit.fitWidth, //cover
+                    //height: double.infinity,
+                    //width: double.infinity,
+                    alignment: Alignment.center,
+                  )),
+              MouseRegion(
+                  onHover: _updateLocation,
+                  child: Visibility(
+                    visible: _isvisible,
+                    child: Image.network(
+                      'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),
+                  )),
+              /*MouseRegion(
+              onHover: _updateLocation,
+              child: GestureDetector(
+                  onTap: () => _updateLocation,
+
+                  //updateImage(details.delta.dy),
+                  child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      color: Colors.blue.withOpacity(0)))),*/
+              // Front image
+              Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FloatingActionButton(
+                        heroTag: "btn1",
+                        onPressed: () {
+                          updateAxialImage(-1);
+                        },
+                        child: const Icon(Icons.navigate_before)),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: FloatingActionButton(
+                        heroTag: 'btn2',
+                        onPressed: () {
+                          updateAxialImage(1);
+                        },
+                        child: const Icon(Icons.navigate_next)),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                        heroTag: 'btn3',
+                        onPressed: () {
+                          setState(() {
+                            _isvisible = !_isvisible;
+                          });
+                        },
+                        child: (_isvisible)
+                            ? Icon(Icons.hide_image)
+                            : Icon(Icons.image)),
+                  ),
+                ],
+              ),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                      padding: EdgeInsets.all(50),
+                      child: Text(
+                        structure,
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )))
+            ],
+          ),
+
+          /*
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() {
+          setState(() {
+            _isvisible = !_isvisible;
+          });
+        }),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
+        )));
+  }
+}
+
+class SaggitalBrainstem extends StatefulWidget {
+  SaggitalBrainstem({super.key});
+  //So will try async function here...
+
+  @override
+  State<SaggitalBrainstem> createState() => _SaggitalBrainstemState();
+}
+
+class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
+  NumberFormat formatter = NumberFormat("00000");
+
+  String structure = "";
+
+  bool _isvisible = true;
+  double x = 0.0;
+  double y = 0.0;
+  int imageAxialNumber = 15;
+
+  void updateAxialImage(double dy) {
+    setState(() {
+      //Random.nextInt(n) returns random integer from 0 to n-1
+      if (dy > 0) {
+        imageAxialNumber = (imageAxialNumber + 1) % 30;
+      }
+      if (dy < 0) {
+        imageAxialNumber = (imageAxialNumber - 1) % 30;
+      }
+    });
+  }
+
+  void _updateLocation(PointerEvent details) {
+    setState(() {
+      x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
+      y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
+
+      //print([x, y]);
+
+      if (yellow_json_data[imageAxialNumber][x.toInt().toString()]
+              [y.toInt().toString()] ==
+          "Material93") {
+        structure = "";
+      } else {
+        structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()];
+      }
+      ;
+    });
+    //print([x, y]);
+    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+    //    [y.toInt().toString()]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text('Saggital Brainstem'),
+        ),
+        body: SizedBox.expand(
+            child: Container(
+          color: Colors.black,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              MouseRegion(
+                  onHover: _updateLocation,
+                  child: Image.network(
+                    'assets/yellow/image_${formatter.format(imageAxialNumber)}.png',
+                    fit: BoxFit.fitWidth, //cover
+                    //height: double.infinity,
+                    //width: double.infinity,
+                    alignment: Alignment.center,
+                  )),
+              MouseRegion(
+                  onHover: _updateLocation,
+                  child: Visibility(
+                    visible: _isvisible,
+                    child: Image.network(
+                      'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
                       fit: BoxFit.fitWidth,
                       //height: double.infinity,
                       //width: double.infinity,
