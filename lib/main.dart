@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_cube/flutter_cube.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
@@ -30,6 +31,13 @@ Future<void> readJson() async {
   }
 
   //print(red_json_data[0]["648"]["23"]);
+}
+
+_launchURL() async {
+  final Uri url = Uri.parse('https://pubmed.ncbi.nlm.nih.gov/33951517/');
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
+  }
 }
 
 void main() {
@@ -62,7 +70,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RadiQuiz',
+      title: 'Brainstem Atlas',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -76,7 +84,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: primaryBlack,
       ),
       home: const MyHomePage(
-          title: 'RadiQuiz - Visualize Radiology Datasets on the Web'),
+          title: 'Brainstem Atlas - Explore the Human Brainstem'),
     );
   }
 }
@@ -105,6 +113,44 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late Scene _scene;
   late AnimationController _controller;
   Object? _skull;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Creative Commons CC By-NC-SA 3.0 Notice'),
+            content: const Text(
+                'Brainstem Data courtesy of the Duke Center for in Vivo Microscopy\n'
+                'First published by Adil et. al 2021\n'
+                '(https://doi.org/10.1016/j.neuroimage.2021.118135)\n'
+                '\nThis website utilizes the data under the creative commons license.'),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('Learn More'),
+                onPressed: () {
+                  _launchURL();
+                  //Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,22 +194,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                              text: 'RadiQuiz\n',
+                              text: 'Brainstem Atlas\n',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 90,
                                   fontStyle: FontStyle.italic)),
                           TextSpan(
-                              text: 'Explore Radiological Dasets\n',
+                              text: 'Explore the Human Brainstem\n\n',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 50)),
                           TextSpan(
-                              text: 'Get Started\n',
-                              style: TextStyle(
-                                  //background: paint,
-                                  backgroundColor: Colors.yellow,
-                                  fontSize: 34,
-                                  color: Colors.black),
+                              text: 'Get Started',
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.push(
@@ -171,7 +212,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     MaterialPageRoute(
                                         builder: (context) => AxialBrainstem()),
                                   );
-                                }),
+                                },
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                  background: Paint()
+                                    ..strokeWidth = 24.0
+                                    ..color = Colors.red
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeJoin = StrokeJoin.round)),
                         ])),
                   ),
                 ),
@@ -201,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
               child: Center(
                   child: Text(
-                'RadiQuiz',
+                'Brainstem Atlas',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               )),
             ),
@@ -303,6 +352,33 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
     //    [y.toInt().toString()]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('How to Use'),
+            content: const Text(
+                '1. Click the arrow on the left/right sides to scroll through the brainstem.\n'
+                '2. Click the bottom right button to toggle color labels.\n'
+                '3. Hover your mouse over the brainstem to see anatomic labels.\n'),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }));
   }
 
   @override
@@ -470,6 +546,33 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('How to Use'),
+            content: const Text(
+                '1. Click the arrow on the left/right sides to scroll through the brainstem.\n'
+                '2. Click the bottom right button to toggle color labels.\n'
+                '3. Hover your mouse over the brainstem to see anatomic labels.\n'),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }));
+  }
+
+  @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -631,6 +734,33 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
     //    [y.toInt().toString()]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('How to Use'),
+            content: const Text(
+                '1. Click the arrow on the left/right sides to scroll through the brainstem.\n'
+                '2. Click the bottom right button to toggle color labels.\n'
+                '3. Hover your mouse over the brainstem to see anatomic labels.\n'),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }));
   }
 
   @override
