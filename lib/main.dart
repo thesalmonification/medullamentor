@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Brainstem Atlas',
+      title: 'Medulla Mentor',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: primaryBlack,
       ),
       home: const MyHomePage(
-          title: 'Brainstem Atlas - Explore the Human Brainstem'),
+          title: 'Medulla Mentor - Explore the Human Brainstem'),
     );
   }
 }
@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                              text: 'Brainstem Atlas\n',
+                              text: 'Medulla Mentor\n',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 90,
@@ -250,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
               child: Center(
                   child: Text(
-                'Brainstem Atlas',
+                'Medulla Mentor',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               )),
             ),
