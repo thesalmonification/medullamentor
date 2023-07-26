@@ -182,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       body: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(
+            /*Expanded(
               flex: 4,
               child: Container(
                 color: Colors.black,
@@ -225,16 +225,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                color: Colors.black,
-                child: Cube(
-                  onSceneCreated: _onSceneCreated,
-                ),
-              ),
-            ),
+            ),*/
+            //Expanded(
+            //  flex: 3,
+            //  child: Container(
+            //    color: Colors.black,
+            //    child: Cube(
+            //      onSceneCreated: _onSceneCreated,
+            //    ),
+            //  ),
+            //),
           ]),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
