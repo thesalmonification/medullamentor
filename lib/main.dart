@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Medulla Mentor',
-      theme: ThemeData(
+      theme: new ThemeData(
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -82,6 +82,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: primaryBlack,
+        //scaffoldBackgroundColor: const Color(0xFFEFEFEF)
       ),
       home: const MyHomePage(
           title: 'Medulla Mentor - Explore the Human Brainstem'),
@@ -179,63 +180,96 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            /*Expanded(
-              flex: 4,
-              child: Container(
-                color: Colors.black,
-                child: Center(
-                  child: FractionallySizedBox(
-                    widthFactor: 1.0,
-                    alignment: Alignment.topCenter,
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: 'Medulla Mentor\n',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 90,
-                                  fontStyle: FontStyle.italic)),
-                          TextSpan(
-                              text: 'Explore the Human Brainstem\n\n',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 50)),
-                          TextSpan(
-                              text: 'Get Started',
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AxialBrainstem()),
-                                  );
-                                },
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                  background: Paint()
-                                    ..strokeWidth = 24.0
-                                    ..color = Colors.red
-                                    ..style = PaintingStyle.stroke
-                                    ..strokeJoin = StrokeJoin.round)),
-                        ])),
-                  ),
-                ),
-              ),
-            ),*/
-            //Expanded(
-            //  flex: 3,
-            //  child: Container(
-            //    color: Colors.black,
-            //    child: Cube(
-            //      onSceneCreated: _onSceneCreated,
-            //    ),
-            //  ),
-            //),
-          ]),
+      body: SafeArea(child:  SizedBox.expand(
+            child: Container(
+          color: Colors.black,
+          child:Center(child: Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    TextButton(
+      child: Text(
+        "Axial Brainstem".toUpperCase(),
+        style: TextStyle(fontSize: 14)
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: BorderSide(color: Color(0xff5E81AC))
+          )
+        )
+      ),
+      onPressed: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AxialBrainstem()),
+                );}
+    ),
+    SizedBox(height: 50),
+    TextButton(
+      child: Text(
+        "Coronal Brainstem".toUpperCase(),
+        style: TextStyle(fontSize: 14)
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: BorderSide(color: Color(0xff5E81AC))
+          )
+        )
+      ),
+      onPressed: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CoronalBrainstem()),
+                );}
+    ),
+    SizedBox(height: 50),
+    TextButton(
+      child: Text(
+        "Saggital Brainstem".toUpperCase(),
+        style: TextStyle(fontSize: 14)
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: BorderSide(color: Color(0xff5E81AC))
+          )
+        )
+      ),
+      onPressed: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
+                );}
+    ),
+    SizedBox(height: 50),
+        TextButton(
+      child: Text(
+        "Quiz Mode (Coming Soon)".toUpperCase(),
+        style: TextStyle(fontSize: 14)
+      ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            side: BorderSide(color: Color(0xff5E81AC))
+          )
+        )
+      ),
+      onPressed: () => null
+    ),
+    SizedBox(height: 50),
+    
+  ]
+))))),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
