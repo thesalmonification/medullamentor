@@ -11,6 +11,10 @@ List<Map> red_json_data = [];
 List<Map> green_json_data = [];
 List<Map> yellow_json_data = [];
 
+List<Map> red_split_json_data = [];
+List<Map> green_split_json_data = [];
+List<Map> yellow_split_json_data = [];
+
 // Fetch content from the json file
 Future<void> readJson() async {
   NumberFormat formatter = NumberFormat("00000");
@@ -33,6 +37,27 @@ Future<void> readJson() async {
   //print(red_json_data[0]["648"]["23"]);
 }
 
+Future<void> readJsonSplits() async {
+  NumberFormat formatter = NumberFormat("00000");
+
+  for (var i = 0; i < 31; i++) {
+    String red_split_response = await rootBundle.loadString(
+        'redlabelsplitjson/image_${formatter.format(i)}_splits.json');
+    String green_split_response = await rootBundle.loadString(
+        'greenlabelsplitjson/image_${formatter.format(i)}_splits.json');
+    String yellow_split_response = await rootBundle.loadString(
+        'yellowlabelsplitjson/image_${formatter.format(i)}_splits.json');
+    final red_split_data = await json.decode(red_split_response);
+    final green_split_data = await json.decode(green_split_response);
+    final yellow_split_data = await json.decode(yellow_split_response);
+    green_split_json_data.add(green_split_data);
+    red_split_json_data.add(red_split_data);
+    yellow_split_json_data.add(yellow_split_data);
+  }
+
+  //print(red_json_data[0]["648"]["23"]);
+}
+
 _launchURL() async {
   final Uri url = Uri.parse('https://pubmed.ncbi.nlm.nih.gov/33951517/');
   if (!await launchUrl(url)) {
@@ -43,6 +68,8 @@ _launchURL() async {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   readJson();
+  readJsonSplits();
+
   runApp(const MyApp());
 }
 
@@ -180,96 +207,105 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: SafeArea(child:  SizedBox.expand(
-            child: Container(
-          color: Colors.black,
-          child:Center(child: Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    TextButton(
-      child: Text(
-        "Axial Brainstem".toUpperCase(),
-        style: TextStyle(fontSize: 14)
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            side: BorderSide(color: Color(0xff5E81AC))
-          )
-        )
-      ),
-      onPressed: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AxialBrainstem()),
-                );}
-    ),
-    SizedBox(height: 50),
-    TextButton(
-      child: Text(
-        "Coronal Brainstem".toUpperCase(),
-        style: TextStyle(fontSize: 14)
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            side: BorderSide(color: Color(0xff5E81AC))
-          )
-        )
-      ),
-      onPressed: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CoronalBrainstem()),
-                );}
-    ),
-    SizedBox(height: 50),
-    TextButton(
-      child: Text(
-        "Saggital Brainstem".toUpperCase(),
-        style: TextStyle(fontSize: 14)
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            side: BorderSide(color: Color(0xff5E81AC))
-          )
-        )
-      ),
-      onPressed: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
-                );}
-    ),
-    SizedBox(height: 50),
-        TextButton(
-      child: Text(
-        "Quiz Mode (Coming Soon)".toUpperCase(),
-        style: TextStyle(fontSize: 14)
-      ),
-      style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-        foregroundColor: MaterialStateProperty.all<Color>(Color(0xff5E81AC)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            side: BorderSide(color: Color(0xff5E81AC))
-          )
-        )
-      ),
-      onPressed: () => null
-    ),
-    SizedBox(height: 50),
-    
-  ]
-))))),
+      body: SafeArea(
+          child: SizedBox.expand(
+              child: Container(
+                  color: Colors.black,
+                  child: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                        TextButton(
+                            child: Text("Axial Brainstem".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xff5E81AC)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AxialBrainstem()),
+                              );
+                            }),
+                        SizedBox(height: 50),
+                        TextButton(
+                            child: Text("Coronal Brainstem".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xff5E81AC)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CoronalBrainstem()),
+                              );
+                            }),
+                        SizedBox(height: 50),
+                        TextButton(
+                            child: Text("Saggital Brainstem".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xff5E81AC)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SaggitalBrainstem()),
+                              );
+                            }),
+                        SizedBox(height: 50),
+                        TextButton(
+                            child: Text("Quiz Mode (Coming Soon)".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xff5E81AC)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () => null),
+                        SizedBox(height: 50),
+                      ]))))),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -348,6 +384,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
   String structure = "";
+  String split_image = red_split_json_data[15]['Unknown Tissue'];
 
   bool _isvisible = true;
   double x = 0.0;
@@ -376,12 +413,18 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       if (red_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-        structure = "";
+        structure = "Unknown Tissue";
       } else {
         structure = red_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()];
       }
       ;
+
+      //Attempting to add in the split json reference here.
+      split_image = red_split_json_data[imageAxialNumber][structure];
+      //split_image = red_split_json_data[00006];
+
+      ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
     });
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
@@ -449,7 +492,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                   child: Visibility(
                     visible: _isvisible,
                     child: Image.network(
-                      'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'assets/redlabelsplit/' + split_image,
                       fit: BoxFit.fitWidth,
                       //height: double.infinity,
                       //width: double.infinity,
@@ -539,6 +583,7 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
   String structure = "";
+  String split_image = green_split_json_data[15]['Unknown Tissue'];
 
   bool _isvisible = true;
   double x = 0.0;
@@ -567,12 +612,14 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
       if (green_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-        structure = "";
+        structure = "Unknown Tissue";
       } else {
         structure = green_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()];
       }
       ;
+
+      split_image = green_split_json_data[imageAxialNumber][structure];
     });
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
@@ -640,7 +687,8 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                   child: Visibility(
                     visible: _isvisible,
                     child: Image.network(
-                      'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      //'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'assets/greenlabelsplit/' + split_image,
                       fit: BoxFit.fitWidth,
                       //height: double.infinity,
                       //width: double.infinity,
@@ -730,6 +778,7 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
   String structure = "";
+  String split_image = yellow_split_json_data[15]['Unknown Tissue'];
 
   bool _isvisible = true;
   double x = 0.0;
@@ -764,6 +813,8 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
             [y.toInt().toString()];
       }
       ;
+
+      split_image = yellow_split_json_data[imageAxialNumber][structure];
     });
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
@@ -831,7 +882,8 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                   child: Visibility(
                     visible: _isvisible,
                     child: Image.network(
-                      'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      //'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'assets/yellowlabelsplit/' + split_image,
                       fit: BoxFit.fitWidth,
                       //height: double.infinity,
                       //width: double.infinity,
