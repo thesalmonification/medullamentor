@@ -383,8 +383,10 @@ class AxialBrainstem extends StatefulWidget {
 class _AxialBrainstemState extends State<AxialBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
-  String structure = "";
+  String structure = ""; //this is the string shown at the top of the screen...
+  String lookupstructure = ""; //this string is specifically for finding the image that highlights a single structure
   String split_image = red_split_json_data[15]['Unknown Tissue'];
+  int lastindex = 0;
 
   bool _isvisible = true;
   double x = 0.0;
@@ -413,15 +415,24 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       if (red_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-        structure = "Unknown Tissue";
+        lookupstructure = "Unknown Tissue";
+        structure = ""; //Don't bother showing any text if it's not an important structure.
       } else {
-        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+        //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+        //    [y.toInt().toString()];
+
+        //Here I get the structure in the raw form for a lookup
+        lookupstructure = red_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()];
+
+        //This is the text shown on screen. I remove any "left" or "right" from the string.
+        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
       }
-      ;
+      
 
       //Attempting to add in the split json reference here.
-      split_image = red_split_json_data[imageAxialNumber][structure];
+      split_image = red_split_json_data[imageAxialNumber][lookupstructure];
       //split_image = red_split_json_data[00006];
 
       ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
@@ -583,6 +594,7 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
   String structure = "";
+  String lookupstructure = "";
   String split_image = green_split_json_data[15]['Unknown Tissue'];
 
   bool _isvisible = true;
@@ -612,14 +624,20 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
       if (green_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
+        lookupstructure = "Unknown Tissue";
         structure = "Unknown Tissue";
       } else {
-        structure = green_json_data[imageAxialNumber][x.toInt().toString()]
+        //Here I get the structure in the raw form for a lookup
+        lookupstructure = green_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()];
+
+        //This is the text shown on screen. I remove any "left" or "right" from the string.
+        structure = green_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
       }
       ;
 
-      split_image = green_split_json_data[imageAxialNumber][structure];
+      split_image = green_split_json_data[imageAxialNumber][lookupstructure];
     });
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
@@ -778,6 +796,7 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
   String structure = "";
+  String lookupstructure = "";
   String split_image = yellow_split_json_data[15]['Unknown Tissue'];
 
   bool _isvisible = true;
@@ -807,14 +826,20 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
       if (yellow_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
+        lookupstructure = "Unknown Tissue";
         structure = "";
       } else {
-        structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
+        //Here I get the structure in the raw form for a lookup
+        lookupstructure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()];
+
+        //This is the text shown on screen. I remove any "left" or "right" from the string.
+        structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
       }
       ;
 
-      split_image = yellow_split_json_data[imageAxialNumber][structure];
+      split_image = yellow_split_json_data[imageAxialNumber][lookupstructure];
     });
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
