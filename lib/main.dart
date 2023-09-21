@@ -544,17 +544,26 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                   )),
               MouseRegion(
                   onHover: _updateLocation,
-                  child: Visibility(
+                  child: /*Visibility(
                     visible: _isvisible,
                     child: Image.network(
+                      _isvisible == true ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/redlabelsplit/' + split_image,
+                      'assets/redlabelsplit/' + split_image : 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
                       fit: BoxFit.fitWidth,
                       //height: double.infinity,
                       //width: double.infinity,
                       alignment: Alignment.center,
                     ),
-                  )),
+                  )*/Image.network(
+                      _isvisible == true ?
+                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'assets/redlabelsplit/' + split_image : 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),),
               /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
@@ -596,9 +605,10 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                           });
                         },
                         child: (_isvisible)
-                            ? Icon(Icons.hide_image)
-                            : Icon(Icons.image)),
+                            ? Icon(Icons.label_off)
+                            : Icon(Icons.label)),
                   ),
+
                 ],
               ),
               Align(
@@ -787,7 +797,7 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                   )),
               MouseRegion(
                   onHover: _updateLocation,
-                  child: Visibility(
+                  child: /*Visibility(
                     visible: _isvisible,
                     child: Image.network(
                       //'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
@@ -797,7 +807,15 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     ),
-                  )),
+                  )*/Image.network(
+                      _isvisible == true ?
+                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'assets/greenlabelsplit/' + split_image : 'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),),
               /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
@@ -839,8 +857,8 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                           });
                         },
                         child: (_isvisible)
-                            ? Icon(Icons.hide_image)
-                            : Icon(Icons.image)),
+                            ? Icon(Icons.label_off)
+                            : Icon(Icons.label)),
                   ),
                 ],
               ),
@@ -1030,7 +1048,7 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                   )),
               MouseRegion(
                   onHover: _updateLocation,
-                  child: Visibility(
+                  child: /*Visibility(
                     visible: _isvisible,
                     child: Image.network(
                       //'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
@@ -1040,7 +1058,15 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     ),
-                  )),
+                  )*/Image.network(
+                      _isvisible == true ?
+                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'assets/yellowlabelsplit/' + split_image : 'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),),
               /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
@@ -1082,8 +1108,8 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                           });
                         },
                         child: (_isvisible)
-                            ? Icon(Icons.hide_image)
-                            : Icon(Icons.image)),
+                            ? Icon(Icons.label_off)
+                            : Icon(Icons.label)),
                   ),
                 ],
               ),
