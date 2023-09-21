@@ -383,6 +383,44 @@ class AxialBrainstem extends StatefulWidget {
 class _AxialBrainstemState extends State<AxialBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
+        //I'm adding a list of strings to account for the inccorectly labeled structures...
+  List<String> incorrect_structures = ['optic chiasm',
+'motor trigeminal nucleus',
+'inferior colliculus',
+'principal sensory trigeminal nucleus',
+'cuneate nucleus',
+'corticospinal tract',
+'pulvinar nuclei',
+'hypoglossal nucleus',
+'abducens nucleus',
+'obex',
+'mesencephalic trigeminal tract',
+'cerebral aqueduct',
+'motor trigeminal nucleus',
+'principal sensory trigeminal nucleus',
+'spinal trigeminal nucleus interpolaris',
+'middle cerebellar peduncle',
+'pulvinar nuclei',
+'hypoglossal nucleus',
+'abducens nucleus',
+'abducens nerve',
+'superior colliculus',
+'trigeminal nerve',
+'trigeminal nerve',
+'anterior commissure',
+'inferior colliculus',
+'decussation superior cerebellar peduncles',
+'inferior cerebellar peduncle',
+'inferior cerebellar peduncle',
+'red nucleus',
+'red nucleus',
+'facial nerve',
+'pyramidal decussation',
+'thalamus excluding pulvinar',
+'cuneate fasciculus',
+'cuneate fasciculus'];
+
+
   String structure = ""; //this is the string shown at the top of the screen...
   String lookupstructure = ""; //this string is specifically for finding the image that highlights a single structure
   String split_image = red_split_json_data[15]['Unknown Tissue'];
@@ -410,6 +448,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
       y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
 
+
+
       //print([x, y]);
 
       if (red_json_data[imageAxialNumber][x.toInt().toString()]
@@ -428,6 +468,10 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = red_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
+
+        if (incorrect_structures.contains(structure)) {
+          structure = 'To Be Labeled';
+        }
       }
       
 
@@ -592,6 +636,43 @@ class CoronalBrainstem extends StatefulWidget {
 
 class _CoronalBrainstemState extends State<CoronalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
+        //I'm adding a list of strings to account for the inccorectly labeled structures...
+  List<String> incorrect_structures = ['optic chiasm',
+'motor trigeminal nucleus',
+'inferior colliculus',
+'principal sensory trigeminal nucleus',
+'cuneate nucleus',
+'corticospinal tract',
+'pulvinar nuclei',
+'hypoglossal nucleus',
+'abducens nucleus',
+'obex',
+'mesencephalic trigeminal tract',
+'cerebral aqueduct',
+'motor trigeminal nucleus',
+'principal sensory trigeminal nucleus',
+'spinal trigeminal nucleus interpolaris',
+'middle cerebellar peduncle',
+'pulvinar nuclei',
+'hypoglossal nucleus',
+'abducens nucleus',
+'abducens nerve',
+'superior colliculus',
+'trigeminal nerve',
+'trigeminal nerve',
+'anterior commissure',
+'inferior colliculus',
+'decussation superior cerebellar peduncles',
+'inferior cerebellar peduncle',
+'inferior cerebellar peduncle',
+'red nucleus',
+'red nucleus',
+'facial nerve',
+'pyramidal decussation',
+'thalamus excluding pulvinar',
+'cuneate fasciculus',
+'cuneate fasciculus'];
+
 
   String structure = "";
   String lookupstructure = "";
@@ -634,6 +715,10 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = green_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
+
+                if (incorrect_structures.contains(structure)) {
+          structure = 'To Be Labeled';
+        }
       }
       ;
 
@@ -794,6 +879,43 @@ class SaggitalBrainstem extends StatefulWidget {
 
 class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
+        //I'm adding a list of strings to account for the inccorectly labeled structures...
+  List<String> incorrect_structures = ['optic chiasm',
+'motor trigeminal nucleus',
+'inferior colliculus',
+'principal sensory trigeminal nucleus',
+'cuneate nucleus',
+'corticospinal tract',
+'pulvinar nuclei',
+'hypoglossal nucleus',
+'abducens nucleus',
+'obex',
+'mesencephalic trigeminal tract',
+'cerebral aqueduct',
+'motor trigeminal nucleus',
+'principal sensory trigeminal nucleus',
+'spinal trigeminal nucleus interpolaris',
+'middle cerebellar peduncle',
+'pulvinar nuclei',
+'hypoglossal nucleus',
+'abducens nucleus',
+'abducens nerve',
+'superior colliculus',
+'trigeminal nerve',
+'trigeminal nerve',
+'anterior commissure',
+'inferior colliculus',
+'decussation superior cerebellar peduncles',
+'inferior cerebellar peduncle',
+'inferior cerebellar peduncle',
+'red nucleus',
+'red nucleus',
+'facial nerve',
+'pyramidal decussation',
+'thalamus excluding pulvinar',
+'cuneate fasciculus',
+'cuneate fasciculus'];
+
 
   String structure = "";
   String lookupstructure = "";
@@ -836,6 +958,10 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
             [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
+
+                if (incorrect_structures.contains(structure)) {
+          structure = 'To Be Labeled';
+        }
       }
       ;
 
