@@ -3,13 +3,52 @@ import numpy as np
 import pandas as pd
 import glob
 
+
+broken_structures = ['optic chiasm',
+'motor trigeminal nucleus right',
+'inferior colliculus right',
+'principal sensory trigeminal nucleus right',
+'cuneate nucleus right',
+'corticospinal tract right',
+'pulvinar nuclei left',
+'hypoglossal nucleus right',
+'abducens nucleus left',
+'obex',
+'mesencephalic trigeminal tract left',
+'cerebral aqueduct',
+'motor trigeminal nucleus left',
+'principal sensory trigeminal nucleus left',
+'spinal trigeminal nucleus interpolaris left',
+'middle cerebellar peduncle left',
+'pulvinar nuclei right',
+'hypoglossal nucleus left',
+'abducens nucleus right',
+'abducens nerve left',
+'superior colliculus right',
+'trigeminal nerve left',
+'trigeminal nerve right',
+'anterior commissure',
+'inferior colliculus left',
+'decussation superior cerebellar peduncles',
+'inferior cerebellar peduncle left',
+'inferior cerebellar peduncle right',
+'red nucleus right',
+'red nucleus left',
+'facial nerve left',
+'pyramidal decussation',
+'thalamus excluding pulvinar left',
+'cuneate fasciculus right',
+'cuneate fasciculus left']
+
 color = 'red'
 
 #Read all images in the directory
 images = glob.glob(color+'/*.png')
 images.sort()
 
-for image in images[0:3]:
+
+
+for image in [images[30]]: #I add list around this loop if I'm trying to correct a single file...
     image_name = image[-15:-4]
     print('\nWE ARE NOW WORKING ON IMAGE: ' + image_name)
 
@@ -37,6 +76,9 @@ for image in images[0:3]:
         split_label = cv2.addWeighted(mri,0.4,image2,1,0)
 
         current_label = str(df[df[0] == split_label_image[14:]].index[0])
+
+        if current_label not in broken_structures: #I'm doing this to reduce the number of split images I see. Hopefully speeds up to only incorrectly labeled structures. 
+            continue
         
         #Concatentate and display images...
         numpy_horizontal_concat = np.concatenate((added_image, split_label), axis=1)
@@ -74,4 +116,3 @@ for image in images[0:3]:
         print('DID NOT SAVE')
         pass
 
-    

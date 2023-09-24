@@ -240,7 +240,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             }),
                         SizedBox(height: 50),
                         TextButton(
-                            child: Text("Coronal Brainstem".toUpperCase(),
+                            child: Text(
+                                "Coronal Brainstem (Coming Soon)".toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
@@ -256,15 +257,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         side: BorderSide(
                                             color: Color(0xff5E81AC))))),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CoronalBrainstem()),
-                              );
+                              //Navigator.push(
+                              //  context,
+                              //  MaterialPageRoute(
+                              //      builder: (context) => CoronalBrainstem()),
+                              //);
                             }),
                         SizedBox(height: 50),
                         TextButton(
-                            child: Text("Saggital Brainstem".toUpperCase(),
+                            child: Text(
+                                "Saggital Brainstem (Coming Soon)"
+                                    .toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
@@ -277,14 +280,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
+                                        side: BorderSide(color: Color(0xff5E81AC))))),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SaggitalBrainstem()),
-                              );
+                              //Navigator.push(
+                              //  context,
+                              //  MaterialPageRoute(
+                              //      builder: (context) => SaggitalBrainstem()),
+                              //);
                             }),
                         SizedBox(height: 50),
                         TextButton(
@@ -345,22 +347,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
             Divider(),
             ListTile(
-              title: const Text('Coronal Brainstem'),
+              title: const Text('Coronal Brainstem (Coming Soon)'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CoronalBrainstem()),
-                );
+                //Navigator.push(
+                //  context,
+                //  MaterialPageRoute(builder: (context) => CoronalBrainstem()),
+                //);
               },
             ),
             Divider(),
             ListTile(
-              title: const Text('Saggital Brainstem'),
+              title: const Text('Saggital Brainstem (Coming Soon)'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
-                );
+                //Navigator.push(
+                //  context,
+                //  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
+                //);
               },
             ),
             Divider(),
@@ -383,46 +385,49 @@ class AxialBrainstem extends StatefulWidget {
 class _AxialBrainstemState extends State<AxialBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
 
-        //I'm adding a list of strings to account for the inccorectly labeled structures...
-  List<String> incorrect_structures = ['optic chiasm',
-'motor trigeminal nucleus',
-'inferior colliculus',
-'principal sensory trigeminal nucleus',
-'cuneate nucleus',
-'corticospinal tract',
-'pulvinar nuclei',
-'hypoglossal nucleus',
-'abducens nucleus',
-'obex',
-'mesencephalic trigeminal tract',
-'cerebral aqueduct',
-'motor trigeminal nucleus',
-'principal sensory trigeminal nucleus',
-'spinal trigeminal nucleus interpolaris',
-'middle cerebellar peduncle',
-'pulvinar nuclei',
-'hypoglossal nucleus',
-'abducens nucleus',
-'abducens nerve',
-'superior colliculus',
-'trigeminal nerve',
-'trigeminal nerve',
-'anterior commissure',
-'inferior colliculus',
-'decussation superior cerebellar peduncles',
-'inferior cerebellar peduncle',
-'inferior cerebellar peduncle',
-'red nucleus',
-'red nucleus',
-'facial nerve',
-'pyramidal decussation',
-'thalamus excluding pulvinar',
-'cuneate fasciculus',
-'cuneate fasciculus'];
-
+  //I'm adding a list of strings to account for the inccorectly labeled structures...
+  /*List<String> incorrect_structures = [
+    'optic chiasm',
+    'motor trigeminal nucleus',
+    'inferior colliculus',
+    'principal sensory trigeminal nucleus',
+    'cuneate nucleus',
+    'corticospinal tract',
+    'pulvinar nuclei',
+    'hypoglossal nucleus',
+    'abducens nucleus',
+    'obex',
+    'mesencephalic trigeminal tract',
+    'cerebral aqueduct',
+    'motor trigeminal nucleus',
+    'principal sensory trigeminal nucleus',
+    'spinal trigeminal nucleus interpolaris',
+    'middle cerebellar peduncle',
+    'pulvinar nuclei',
+    'hypoglossal nucleus',
+    'abducens nucleus',
+    'abducens nerve',
+    'superior colliculus',
+    'trigeminal nerve',
+    'trigeminal nerve',
+    'anterior commissure',
+    'inferior colliculus',
+    'decussation superior cerebellar peduncles',
+    'inferior cerebellar peduncle',
+    'inferior cerebellar peduncle',
+    'red nucleus',
+    'red nucleus',
+    'facial nerve',
+    'pyramidal decussation',
+    'thalamus excluding pulvinar',
+    'cuneate fasciculus',
+    'cuneate fasciculus'
+  ];*/
+  List<String> incorrect_structures = [];
 
   String structure = ""; //this is the string shown at the top of the screen...
-  String lookupstructure = ""; //this string is specifically for finding the image that highlights a single structure
+  String lookupstructure =
+      ""; //this string is specifically for finding the image that highlights a single structure
   String split_image = red_split_json_data[15]['Unknown Tissue'];
   int lastindex = 0;
 
@@ -448,15 +453,14 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
       y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
 
-
-
       //print([x, y]);
 
       if (red_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
         lookupstructure = "Unknown Tissue";
-        structure = ""; //Don't bother showing any text if it's not an important structure.
+        structure =
+            ""; //Don't bother showing any text if it's not an important structure.
       } else {
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
         //    [y.toInt().toString()];
@@ -467,13 +471,17 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = red_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
+                [y.toInt().toString()]
+            .toString()
+            .replaceAll(' left', '')
+            .replaceAll(' right', '')
+            .trim()
+            .toString();
 
         if (incorrect_structures.contains(structure)) {
           structure = 'To Be Labeled';
         }
       }
-      
 
       //Attempting to add in the split json reference here.
       split_image = red_split_json_data[imageAxialNumber][lookupstructure];
@@ -543,8 +551,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                     alignment: Alignment.center,
                   )),
               MouseRegion(
-                  onHover: _updateLocation,
-                  child: /*Visibility(
+                onHover: _updateLocation,
+                child: /*Visibility(
                     visible: _isvisible,
                     child: Image.network(
                       _isvisible == true ?
@@ -555,15 +563,19 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     ),
-                  )*/Image.network(
-                      _isvisible == true ?
+                  )*/
+                    Image.network(
+                  _isvisible == true
+                      ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/redlabelsplit/' + split_image : 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),),
+                      'assets/redlabelsplit/' + split_image
+                      : 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                  fit: BoxFit.fitWidth,
+                  //height: double.infinity,
+                  //width: double.infinity,
+                  alignment: Alignment.center,
+                ),
+              ),
               /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
@@ -608,7 +620,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                             ? Icon(Icons.label_off)
                             : Icon(Icons.label)),
                   ),
-
                 ],
               ),
               Align(
@@ -646,8 +657,8 @@ class CoronalBrainstem extends StatefulWidget {
 
 class _CoronalBrainstemState extends State<CoronalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
-        //I'm adding a list of strings to account for the inccorectly labeled structures...
-  List<String> incorrect_structures = ['optic chiasm',
+  //I'm adding a list of strings to account for the inccorectly labeled structures...
+  /*List<String> incorrect_structures = ['optic chiasm',
 'motor trigeminal nucleus',
 'inferior colliculus',
 'principal sensory trigeminal nucleus',
@@ -681,8 +692,9 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
 'pyramidal decussation',
 'thalamus excluding pulvinar',
 'cuneate fasciculus',
-'cuneate fasciculus'];
+'cuneate fasciculus'];*/
 
+  List<String> incorrect_structures = [];
 
   String structure = "";
   String lookupstructure = "";
@@ -719,14 +731,19 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
         structure = "Unknown Tissue";
       } else {
         //Here I get the structure in the raw form for a lookup
-        lookupstructure = green_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()];
+        lookupstructure = green_json_data[imageAxialNumber]
+            [x.toInt().toString()][y.toInt().toString()];
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = green_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
+                [y.toInt().toString()]
+            .toString()
+            .replaceAll(' left', '')
+            .replaceAll(' right', '')
+            .trim()
+            .toString();
 
-                if (incorrect_structures.contains(structure)) {
+        if (incorrect_structures.contains(structure)) {
           structure = 'To Be Labeled';
         }
       }
@@ -796,8 +813,8 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                     alignment: Alignment.center,
                   )),
               MouseRegion(
-                  onHover: _updateLocation,
-                  child: /*Visibility(
+                onHover: _updateLocation,
+                child: /*Visibility(
                     visible: _isvisible,
                     child: Image.network(
                       //'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
@@ -807,15 +824,19 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     ),
-                  )*/Image.network(
-                      _isvisible == true ?
+                  )*/
+                    Image.network(
+                  _isvisible == true
+                      ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/greenlabelsplit/' + split_image : 'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),),
+                      'assets/greenlabelsplit/' + split_image
+                      : 'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
+                  fit: BoxFit.fitWidth,
+                  //height: double.infinity,
+                  //width: double.infinity,
+                  alignment: Alignment.center,
+                ),
+              ),
               /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
@@ -897,43 +918,44 @@ class SaggitalBrainstem extends StatefulWidget {
 
 class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
-        //I'm adding a list of strings to account for the inccorectly labeled structures...
-  List<String> incorrect_structures = ['optic chiasm',
-'motor trigeminal nucleus',
-'inferior colliculus',
-'principal sensory trigeminal nucleus',
-'cuneate nucleus',
-'corticospinal tract',
-'pulvinar nuclei',
-'hypoglossal nucleus',
-'abducens nucleus',
-'obex',
-'mesencephalic trigeminal tract',
-'cerebral aqueduct',
-'motor trigeminal nucleus',
-'principal sensory trigeminal nucleus',
-'spinal trigeminal nucleus interpolaris',
-'middle cerebellar peduncle',
-'pulvinar nuclei',
-'hypoglossal nucleus',
-'abducens nucleus',
-'abducens nerve',
-'superior colliculus',
-'trigeminal nerve',
-'trigeminal nerve',
-'anterior commissure',
-'inferior colliculus',
-'decussation superior cerebellar peduncles',
-'inferior cerebellar peduncle',
-'inferior cerebellar peduncle',
-'red nucleus',
-'red nucleus',
-'facial nerve',
-'pyramidal decussation',
-'thalamus excluding pulvinar',
-'cuneate fasciculus',
-'cuneate fasciculus'];
-
+  //I'm adding a list of strings to account for the inccorectly labeled structures...
+  List<String> incorrect_structures = [
+    'optic chiasm',
+    'motor trigeminal nucleus',
+    'inferior colliculus',
+    'principal sensory trigeminal nucleus',
+    'cuneate nucleus',
+    'corticospinal tract',
+    'pulvinar nuclei',
+    'hypoglossal nucleus',
+    'abducens nucleus',
+    'obex',
+    'mesencephalic trigeminal tract',
+    'cerebral aqueduct',
+    'motor trigeminal nucleus',
+    'principal sensory trigeminal nucleus',
+    'spinal trigeminal nucleus interpolaris',
+    'middle cerebellar peduncle',
+    'pulvinar nuclei',
+    'hypoglossal nucleus',
+    'abducens nucleus',
+    'abducens nerve',
+    'superior colliculus',
+    'trigeminal nerve',
+    'trigeminal nerve',
+    'anterior commissure',
+    'inferior colliculus',
+    'decussation superior cerebellar peduncles',
+    'inferior cerebellar peduncle',
+    'inferior cerebellar peduncle',
+    'red nucleus',
+    'red nucleus',
+    'facial nerve',
+    'pyramidal decussation',
+    'thalamus excluding pulvinar',
+    'cuneate fasciculus',
+    'cuneate fasciculus'
+  ];
 
   String structure = "";
   String lookupstructure = "";
@@ -970,14 +992,19 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
         structure = "";
       } else {
         //Here I get the structure in the raw form for a lookup
-        lookupstructure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()];
+        lookupstructure = yellow_json_data[imageAxialNumber]
+            [x.toInt().toString()][y.toInt().toString()];
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()].toString().replaceAll(' left','').replaceAll(' right', '').trim().toString();
+                [y.toInt().toString()]
+            .toString()
+            .replaceAll(' left', '')
+            .replaceAll(' right', '')
+            .trim()
+            .toString();
 
-                if (incorrect_structures.contains(structure)) {
+        if (incorrect_structures.contains(structure)) {
           structure = 'To Be Labeled';
         }
       }
@@ -1047,8 +1074,8 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                     alignment: Alignment.center,
                   )),
               MouseRegion(
-                  onHover: _updateLocation,
-                  child: /*Visibility(
+                onHover: _updateLocation,
+                child: /*Visibility(
                     visible: _isvisible,
                     child: Image.network(
                       //'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
@@ -1058,15 +1085,19 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     ),
-                  )*/Image.network(
-                      _isvisible == true ?
+                  )*/
+                    Image.network(
+                  _isvisible == true
+                      ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/yellowlabelsplit/' + split_image : 'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),),
+                      'assets/yellowlabelsplit/' + split_image
+                      : 'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
+                  fit: BoxFit.fitWidth,
+                  //height: double.infinity,
+                  //width: double.infinity,
+                  alignment: Alignment.center,
+                ),
+              ),
               /*MouseRegion(
               onHover: _updateLocation,
               child: GestureDetector(
