@@ -543,8 +543,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
             children: [
               MouseRegion(
                   onHover: _updateLocation,
-                  child: Image.network(
-                    'assets/red/image_${formatter.format(imageAxialNumber)}.png',
+                  child: Image.asset(
+                    'red/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
@@ -564,12 +564,12 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                       alignment: Alignment.center,
                     ),
                   )*/
-                    Image.network(
+                    Image.asset(
                   _isvisible == true
                       ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/redlabelsplit/' + split_image
-                      : 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'redlabelsplit/' + split_image
+                      : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
                   fit: BoxFit.fitWidth,
                   //height: double.infinity,
                   //width: double.infinity,
@@ -805,8 +805,8 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
             children: [
               MouseRegion(
                   onHover: _updateLocation,
-                  child: Image.network(
-                    'assets/green/image_${formatter.format(imageAxialNumber)}.png',
+                  child: Image.asset(
+                    'green/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
@@ -825,12 +825,12 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                       alignment: Alignment.center,
                     ),
                   )*/
-                    Image.network(
+                    Image.asset(
                   _isvisible == true
                       ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/greenlabelsplit/' + split_image
-                      : 'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'greenlabelsplit/' + split_image
+                      : 'greenlabels/image_${formatter.format(imageAxialNumber)}.png',
                   fit: BoxFit.fitWidth,
                   //height: double.infinity,
                   //width: double.infinity,
@@ -1066,8 +1066,8 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
             children: [
               MouseRegion(
                   onHover: _updateLocation,
-                  child: Image.network(
-                    'assets/yellow/image_${formatter.format(imageAxialNumber)}.png',
+                  child: Image.asset(
+                    'yellow/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
@@ -1086,12 +1086,12 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                       alignment: Alignment.center,
                     ),
                   )*/
-                    Image.network(
+                    Image.asset(
                   _isvisible == true
                       ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/yellowlabelsplit/' + split_image
-                      : 'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      'yellowlabelsplit/' + split_image
+                      : 'yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
                   fit: BoxFit.fitWidth,
                   //height: double.infinity,
                   //width: double.infinity,
