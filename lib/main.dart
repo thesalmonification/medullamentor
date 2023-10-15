@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
+
 List<Map> red_json_data = [];
 List<Map> green_json_data = [];
 List<Map> yellow_json_data = [];
@@ -349,10 +350,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ListTile(
               title: const Text('Coronal Brainstem (Under Repair)'),
               onTap: () {
-                //Navigator.push(
-                //  context,
-                //  MaterialPageRoute(builder: (context) => CoronalBrainstem()),
-                //);
+               // Navigator.push(
+               //   context,
+               //   MaterialPageRoute(builder: (context) => CoronalBrainstem()),
+               // );
               },
             ),
             Divider(),
@@ -382,8 +383,81 @@ class AxialBrainstem extends StatefulWidget {
   State<AxialBrainstem> createState() => _AxialBrainstemState();
 }
 
+
+
 class _AxialBrainstemState extends State<AxialBrainstem> {
+  List<String> incorrect_structures = [];
+
+  String structure = ""; //this is the string shown at the top of the screen...
+  String lookupstructure =
+      ""; //this string is specifically for finding the image that highlights a single structure
+  String split_image = red_split_json_data[15]['Unknown Tissue'];
+  int lastindex = 0;
+
+  bool _isvisible = true;
+  double x = 0.0;
+  double y = 0.0;
+  int imageAxialNumber = 15;
+
+
   NumberFormat formatter = NumberFormat("00000");
+
+  ///////////////////////////////////////////////////////
+
+  void onTapDown(BuildContext context, TapDownDetails details) {
+
+    setState(() {
+
+
+      x = details.localPosition.dx;
+      y = details.localPosition.dy;
+
+
+      if (red_json_data[imageAxialNumber][x.toInt().toString()]
+              [y.toInt().toString()] ==
+          "Material93") {
+
+        lookupstructure = "Unknown Tissue";
+        structure =
+            ""; //Don't bother showing any text if it's not an important structure.
+      } else {
+
+        //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+        //    [y.toInt().toString()];
+
+        //Here I get the structure in the raw form for a lookup
+        lookupstructure = red_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()];
+
+        //This is the text shown on screen. I remove any "left" or "right" from the string.
+        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+                [y.toInt().toString()]
+            .toString()
+            .replaceAll(' left', '')
+            .replaceAll(' right', '')
+            .trim()
+            .toString();
+
+        if (incorrect_structures.contains(structure)) {
+          structure = 'To Be Labeled';
+        }
+      }
+
+      //Attempting to add in the split json reference here.
+      split_image = red_split_json_data[imageAxialNumber][lookupstructure];
+      //split_image = red_split_json_data[00006];
+
+      ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
+
+    //print([x, y]);
+    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+    //    [y.toInt().toString()]);
+    });
+  }
+  ////////////////////////////////////////////////////////
+
+
+
 
   //I'm adding a list of strings to account for the inccorectly labeled structures...
   /*List<String> incorrect_structures = [
@@ -423,76 +497,31 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     'cuneate fasciculus',
     'cuneate fasciculus'
   ];*/
-  List<String> incorrect_structures = [];
 
-  String structure = ""; //this is the string shown at the top of the screen...
-  String lookupstructure =
-      ""; //this string is specifically for finding the image that highlights a single structure
-  String split_image = red_split_json_data[15]['Unknown Tissue'];
-  int lastindex = 0;
 
-  bool _isvisible = true;
-  double x = 0.0;
-  double y = 0.0;
-  int imageAxialNumber = 15;
+
+  
 
   void updateAxialImage(double dy) {
+    print('changed axial image');
     setState(() {
       //Random.nextInt(n) returns random integer from 0 to n-1
       if (dy > 0) {
         imageAxialNumber = (imageAxialNumber + 1) % 30;
+        split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        structure = "";
       }
       if (dy < 0) {
         imageAxialNumber = (imageAxialNumber - 1) % 30;
+        split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        structure = "";
       }
     });
   }
 
-  void _updateLocation(PointerEvent details) {
-    setState(() {
-      x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
-      y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
+  
 
-      //print([x, y]);
-
-      if (red_json_data[imageAxialNumber][x.toInt().toString()]
-              [y.toInt().toString()] ==
-          "Material93") {
-        lookupstructure = "Unknown Tissue";
-        structure =
-            ""; //Don't bother showing any text if it's not an important structure.
-      } else {
-        //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
-        //    [y.toInt().toString()];
-
-        //Here I get the structure in the raw form for a lookup
-        lookupstructure = red_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()];
-
-        //This is the text shown on screen. I remove any "left" or "right" from the string.
-        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
-                [y.toInt().toString()]
-            .toString()
-            .replaceAll(' left', '')
-            .replaceAll(' right', '')
-            .trim()
-            .toString();
-
-        if (incorrect_structures.contains(structure)) {
-          structure = 'To Be Labeled';
-        }
-      }
-
-      //Attempting to add in the split json reference here.
-      split_image = red_split_json_data[imageAxialNumber][lookupstructure];
-      //split_image = red_split_json_data[00006];
-
-      ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
-    });
-    //print([x, y]);
-    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
-    //    [y.toInt().toString()]);
-  }
+  
 
   @override
   void initState() {
@@ -521,6 +550,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         }));
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -538,32 +569,21 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         body: SizedBox.expand(
             child: Container(
           color: Colors.black,
-          child: Stack(
+          child: InteractiveViewer(child: Stack(
             alignment: Alignment.center,
             children: [
-              MouseRegion(
-                  onHover: _updateLocation,
-                  child: Image.asset(
+
+                  Image.asset(
                     'red/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
                     alignment: Alignment.center,
-                  )),
-              MouseRegion(
-                onHover: _updateLocation,
-                child: /*Visibility(
-                    visible: _isvisible,
-                    child: Image.network(
-                      _isvisible == true ?
-                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/redlabelsplit/' + split_image : 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),
-                  )*/
+                  ),
+
+              InkWell(
+                onTapDown: (details) => onTapDown(context, details),
+                child: 
                     Image.asset(
                   _isvisible == true
                       ?
@@ -576,17 +596,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                   alignment: Alignment.center,
                 ),
               ),
-              /*MouseRegion(
-              onHover: _updateLocation,
-              child: GestureDetector(
-                  onTap: () => _updateLocation,
 
-                  //updateImage(details.delta.dy),
-                  child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      color: Colors.blue.withOpacity(0)))),*/
-              // Front image
+
               Stack(
                 children: <Widget>[
                   Align(
@@ -631,19 +642,10 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                         style: TextStyle(color: Colors.white, fontSize: 30),
                       )))
             ],
-          ),
+          ))),
 
-          /*
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {
-          setState(() {
-            _isvisible = !_isvisible;
-          });
-        }),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
-        )));
+
+        ));
   }
 }
 
@@ -705,34 +707,32 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
   double y = 0.0;
   int imageAxialNumber = 15;
 
-  void updateAxialImage(double dy) {
-    setState(() {
-      //Random.nextInt(n) returns random integer from 0 to n-1
-      if (dy > 0) {
-        imageAxialNumber = (imageAxialNumber + 1) % 30;
-      }
-      if (dy < 0) {
-        imageAxialNumber = (imageAxialNumber - 1) % 30;
-      }
-    });
-  }
+  ///////////////////////////////////////////////////////
 
-  void _updateLocation(PointerEvent details) {
-    setState(() {
-      x = details.localPosition.dx; // MediaQuery.of(context).size.height * 652;
-      y = details.localPosition.dy; // MediaQuery.of(context).size.width * 456;
+  void onTapDown(BuildContext context, TapDownDetails details) {
 
-      //print([x, y]);
+    setState(() {
+
+
+      x = details.localPosition.dx;
+      y = details.localPosition.dy;
+
 
       if (green_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
+
         lookupstructure = "Unknown Tissue";
-        structure = "Unknown Tissue";
+        structure =
+            ""; //Don't bother showing any text if it's not an important structure.
       } else {
+
+        //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+        //    [y.toInt().toString()];
+
         //Here I get the structure in the raw form for a lookup
-        lookupstructure = green_json_data[imageAxialNumber]
-            [x.toInt().toString()][y.toInt().toString()];
+        lookupstructure = green_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()];
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = green_json_data[imageAxialNumber][x.toInt().toString()]
@@ -747,14 +747,37 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
           structure = 'To Be Labeled';
         }
       }
-      ;
 
+      //Attempting to add in the split json reference here.
       split_image = green_split_json_data[imageAxialNumber][lookupstructure];
-    });
+      //split_image = red_split_json_data[00006];
+
+      ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
+
     //print([x, y]);
     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
     //    [y.toInt().toString()]);
+    });
   }
+  ////////////////////////////////////////////////////////
+
+  void updateAxialImage(double dy) {
+    setState(() {
+      //Random.nextInt(n) returns random integer from 0 to n-1
+      if (dy > 0) {
+        imageAxialNumber = (imageAxialNumber + 1) % 30;
+        split_image = green_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        structure = "";
+      }
+      if (dy < 0) {
+        imageAxialNumber = (imageAxialNumber - 1) % 30;
+        split_image = green_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        structure = "";
+      }
+    });
+  }
+
+  
 
   @override
   void initState() {
@@ -800,31 +823,19 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
         body: SizedBox.expand(
             child: Container(
           color: Colors.black,
-          child: Stack(
+          child: InteractiveViewer(child: Stack(
             alignment: Alignment.center,
             children: [
-              MouseRegion(
-                  onHover: _updateLocation,
-                  child: Image.asset(
+              Image.asset(
                     'green/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
                     alignment: Alignment.center,
-                  )),
-              MouseRegion(
-                onHover: _updateLocation,
-                child: /*Visibility(
-                    visible: _isvisible,
-                    child: Image.network(
-                      //'assets/greenlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/greenlabelsplit/' + split_image,
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),
-                  )*/
+                  ),
+              InkWell(
+                onTapDown: (details) => onTapDown(context, details),
+                child: 
                     Image.asset(
                   _isvisible == true
                       ?
@@ -837,16 +848,7 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                   alignment: Alignment.center,
                 ),
               ),
-              /*MouseRegion(
-              onHover: _updateLocation,
-              child: GestureDetector(
-                  onTap: () => _updateLocation,
 
-                  //updateImage(details.delta.dy),
-                  child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      color: Colors.blue.withOpacity(0)))),*/
               // Front image
               Stack(
                 children: <Widget>[
@@ -892,18 +894,8 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                         style: TextStyle(color: Colors.white, fontSize: 30),
                       )))
             ],
-          ),
+          )),
 
-          /*
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {
-          setState(() {
-            _isvisible = !_isvisible;
-          });
-        }),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
         )));
   }
 }
@@ -919,7 +911,8 @@ class SaggitalBrainstem extends StatefulWidget {
 class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
   NumberFormat formatter = NumberFormat("00000");
   //I'm adding a list of strings to account for the inccorectly labeled structures...
-  List<String> incorrect_structures = [
+  List<String> incorrect_structures = [];
+  /*List<String> incorrect_structures = [
     'optic chiasm',
     'motor trigeminal nucleus',
     'inferior colliculus',
@@ -955,7 +948,56 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
     'thalamus excluding pulvinar',
     'cuneate fasciculus',
     'cuneate fasciculus'
-  ];
+  ];*/
+
+
+  ///////////////////////////////////////////////////////
+
+  void onTapDown(BuildContext context, TapDownDetails details) {
+
+    setState(() {
+
+
+      x = details.localPosition.dx;
+      y = details.localPosition.dy;
+
+
+      if (yellow_json_data[imageAxialNumber][x.toInt().toString()]
+              [y.toInt().toString()] ==
+          "Material93") {
+
+        lookupstructure = "Unknown Tissue";
+        structure =
+            ""; //Don't bother showing any text if it's not an important structure.
+      } else {
+
+        //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+        //    [y.toInt().toString()];
+
+        //Here I get the structure in the raw form for a lookup
+        lookupstructure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
+            [y.toInt().toString()];
+
+        //This is the text shown on screen. I remove any "left" or "right" from the string.
+        structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
+                [y.toInt().toString()]
+            .toString()
+            .replaceAll(' left', '')
+            .replaceAll(' right', '')
+            .trim()
+            .toString();
+
+        if (incorrect_structures.contains(structure)) {
+          structure = 'To Be Labeled';
+        }
+      }
+
+      //Attempting to add in the split json reference here.
+      split_image = yellow_split_json_data[imageAxialNumber][lookupstructure];
+
+    });
+  }
+  ////////////////////////////////////////////////////////
 
   String structure = "";
   String lookupstructure = "";
@@ -971,9 +1013,13 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
       //Random.nextInt(n) returns random integer from 0 to n-1
       if (dy > 0) {
         imageAxialNumber = (imageAxialNumber + 1) % 30;
+        split_image = yellow_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        structure = "";
       }
       if (dy < 0) {
         imageAxialNumber = (imageAxialNumber - 1) % 30;
+        split_image = yellow_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        structure = "";
       }
     });
   }
@@ -1061,31 +1107,19 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
         body: SizedBox.expand(
             child: Container(
           color: Colors.black,
-          child: Stack(
+          child: InteractiveViewer(child: Stack(
             alignment: Alignment.center,
             children: [
-              MouseRegion(
-                  onHover: _updateLocation,
-                  child: Image.asset(
+              Image.asset(
                     'yellow/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
                     alignment: Alignment.center,
-                  )),
-              MouseRegion(
-                onHover: _updateLocation,
-                child: /*Visibility(
-                    visible: _isvisible,
-                    child: Image.network(
-                      //'assets/yellowlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'assets/yellowlabelsplit/' + split_image,
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),
-                  )*/
+                  ),
+              InkWell(
+                onTapDown: (details) => onTapDown(context, details),
+                child: 
                     Image.asset(
                   _isvisible == true
                       ?
@@ -1098,16 +1132,7 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                   alignment: Alignment.center,
                 ),
               ),
-              /*MouseRegion(
-              onHover: _updateLocation,
-              child: GestureDetector(
-                  onTap: () => _updateLocation,
 
-                  //updateImage(details.delta.dy),
-                  child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      color: Colors.blue.withOpacity(0)))),*/
               // Front image
               Stack(
                 children: <Widget>[
@@ -1153,18 +1178,8 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                         style: TextStyle(color: Colors.white, fontSize: 30),
                       )))
             ],
-          ),
+          )),
 
-          /*
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {
-          setState(() {
-            _isvisible = !_isvisible;
-          });
-        }),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
         )));
   }
 }
