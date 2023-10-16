@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
+List<Map> chat_json_data = [];
 
 List<Map> red_json_data = [];
 List<Map> green_json_data = [];
@@ -36,6 +37,16 @@ Future<void> readJson() async {
   }
 
   //print(red_json_data[0]["648"]["23"]);
+}
+
+//these reads in the descriptions created by chat to display as tool tips next to the structure name...
+Future<void> readJsonChat() async {
+  String chat_response = await rootBundle.loadString(
+        'chatjson/chatdescriptions.json');
+
+  final chat_data = await json.decode(chat_response);
+  chat_json_data.add(chat_data);
+
 }
 
 Future<void> readJsonSplits() async {
@@ -70,6 +81,9 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   readJson();
   readJsonSplits();
+  readJsonChat();
+
+  
 
   runApp(const MyApp());
 }
@@ -399,6 +413,11 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   double y = 0.0;
   int imageAxialNumber = 15;
 
+  String location = "pons"; //I'm adding in a location string to show 
+
+  String tooltipmsg = ""; //This string will hold the tool tip description for 
+  bool tooltipvisibility = false; //I want to hide the
+
 
   NumberFormat formatter = NumberFormat("00000");
 
@@ -420,6 +439,10 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         lookupstructure = "Unknown Tissue";
         structure =
             ""; //Don't bother showing any text if it's not an important structure.
+
+        tooltipmsg = ''; //don't show a tooltip description of the structure if there's no structure listed.
+        tooltipvisibility = false; 
+
       } else {
 
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
@@ -441,7 +464,21 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         if (incorrect_structures.contains(structure)) {
           structure = 'To Be Labeled';
         }
+
+        
+
+        //here's where I update the tooltip message to describe the structure from chat gpt.
+        try {
+          tooltipmsg = chat_json_data[0][structure];
+        }
+        catch (e) {
+          tooltipmsg = 'Description Coming Soon!';
+        }
+        
+        tooltipvisibility = true;
       }
+
+
 
       //Attempting to add in the split json reference here.
       split_image = red_split_json_data[imageAxialNumber][lookupstructure];
@@ -503,19 +540,37 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   
 
   void updateAxialImage(double dy) {
-    print('changed axial image');
+    //print('changed axial image');
     setState(() {
       //Random.nextInt(n) returns random integer from 0 to n-1
       if (dy > 0) {
         imageAxialNumber = (imageAxialNumber + 1) % 30;
         split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
         structure = "";
+        tooltipvisibility = false;
       }
       if (dy < 0) {
         imageAxialNumber = (imageAxialNumber - 1) % 30;
         split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
         structure = "";
+        tooltipvisibility = false;
       }
+
+      //Here I update text to tell what part of the brainstem we are in...
+      if (imageAxialNumber >= 18) {
+        location = 'midbrain';
+      } else if (imageAxialNumber > 8) {
+        location = 'pons';
+      } else {
+        location = 'medulla';
+      }
+
+      //adding here to display level of the brainstem we are in...
+      //pons - 17 - 8
+      //medulla - 7 - 0
+      //midbrain - >=18
+
+
     });
   }
 
@@ -637,8 +692,16 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                   alignment: Alignment.topCenter,
                   child: Padding(
                       padding: EdgeInsets.all(50),
-                      child: Text(
+                      child: Row(children: [Text(
                         structure,
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      ), SizedBox(width: 5),Visibility(child: Tooltip(child: Icon(Icons.help,size: 40,color: Colors.white,),message: tooltipmsg,),visible: tooltipvisibility,)]))),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                      padding: EdgeInsets.all(50),
+                      child: Text(
+                        'Location: '+ location,
                         style: TextStyle(color: Colors.white, fontSize: 30),
                       )))
             ],
