@@ -453,7 +453,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
             [y.toInt().toString()];
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
-        structure = 'Structure: ' + red_json_data[imageAxialNumber][x.toInt().toString()]
+        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
                 [y.toInt().toString()]
             .toString()
             .replaceAll(' left', '')
@@ -467,12 +467,9 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
         
 
-      
+        //here's where I update the tooltip message to describe the structure from chat gpt.
         try {
-          //print(structure.substring(11,structure.length-1));
-          //tooltipmsg = chat_json_data[0][structure.substring(11,structure.length)];
-          //print(chat_json_data[0]);
-          tooltipmsg = chat_json_data[0][structure.substring(11,structure.length)];
+          tooltipmsg = chat_json_data[0][structure];
         }
         catch (e) {
           tooltipmsg = 'Description Coming Soon!';
