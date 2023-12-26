@@ -18,8 +18,6 @@ class BrainstemQuiz extends StatefulWidget {
   State<BrainstemQuiz> createState() => _BrainstemQuizState();
 }
 
-
-
 class _BrainstemQuizState extends State<BrainstemQuiz> {
   List<String> incorrect_structures = [];
 
@@ -34,29 +32,22 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   double y = 0.0;
   int imageAxialNumber = 15;
 
-
   NumberFormat formatter = NumberFormat("00000");
 
   ///////////////////////////////////////////////////////
 
   void onTapDown(BuildContext context, TapDownDetails details) {
-
     setState(() {
-
-
       x = details.localPosition.dx;
       y = details.localPosition.dy;
-
 
       if (red_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-
         lookupstructure = "Unknown Tissue";
         structure =
             ""; //Don't bother showing any text if it's not an important structure.
       } else {
-
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
         //    [y.toInt().toString()];
 
@@ -84,15 +75,12 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
 
       ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
 
-    //print([x, y]);
-    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
-    //    [y.toInt().toString()]);
+      //print([x, y]);
+      //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+      //    [y.toInt().toString()]);
     });
   }
   ////////////////////////////////////////////////////////
-
-
-
 
   //I'm adding a list of strings to account for the inccorectly labeled structures...
   /*List<String> incorrect_structures = [
@@ -133,10 +121,6 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
     'cuneate fasciculus'
   ];*/
 
-
-
-  
-
   // void updateAxialImage(double dy) {
   //   print('changed axial image');
   //   setState(() {
@@ -154,19 +138,14 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   //   });
   // }
 
-    void updateAxialImage() {
+  void updateAxialImage() {
     print('changed axial image');
     setState(() {
       imageAxialNumber = Random().nextInt(30);
       split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
       structure = "";
-
     });
   }
-
-  
-
-  
 
   @override
   void initState() {
@@ -195,9 +174,17 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         }));
   }
 
-  
-
   bool answerAPressed = false;
+  bool answerBPressed = false;
+  bool answerCPressed = false;
+  bool answerDPressed = false;
+
+  bool answerACorrect = true;
+  bool answerBCorrect = false;
+  bool answerCCorrect = false;
+  bool answerDCorrect = false;
+
+  bool learn = false;
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -213,12 +200,12 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
           title: Text('Quiz Mode'),
         ),
         body: SizedBox.expand(
-            child: Container(
-          color: Colors.black,
-          child: InteractiveViewer(child: Stack(
-            alignment: Alignment.center,
-            children: [
-
+          child: Container(
+              color: Colors.black,
+              child: InteractiveViewer(
+                  child: Stack(
+                alignment: Alignment.center,
+                children: [
                   Image.asset(
                     'red/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
@@ -226,148 +213,242 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                     //width: double.infinity,
                     alignment: Alignment.center,
                   ),
-
-              InkWell(
-                onTapDown: (details) => onTapDown(context, details),
-                child: 
-                    Image.asset(
-                  _isvisible == true
-                      ?
-                      // 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'redlabelsplit/' + split_image
-                      : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                  fit: BoxFit.fitWidth,
-                  //height: double.infinity,
-                  //width: double.infinity,
-                  alignment: Alignment.center,
-                ),
-              ),
-
-
-              Stack(
-                children: <Widget>[
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: FloatingActionButton(
-                  //       heroTag: "btn1",
-                  //       onPressed: () {
-                  //         updateAxialImage(-1);
-                  //       },
-                  //       child: const Icon(Icons.navigate_before)),
-                  // ),
-
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                    height: double.infinity,
-                    width: double.infinity,
-                    child: Row(
-                      children: [
-                        Expanded(child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            answerAPressed = !answerAPressed;
-                          });
-                          updateAxialImage();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
-                        ),
-                      child: Text('Answer'))),
-                      Expanded(child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            answerAPressed = !answerAPressed;
-                          });
-                          updateAxialImage();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
-                        ),
-                      child: Text('Answer'))),
-                      Expanded(child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            answerAPressed = !answerAPressed;
-                          });
-                          updateAxialImage();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
-                        ),
-                      child: Text('Answer'))),
-                      Expanded(child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            answerAPressed = !answerAPressed;
-                          });
-                          updateAxialImage();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
-                        ),
-                      child: Text('Answer'))),
-                      ],
+                  InkWell(
+                    onTapDown: (details) => onTapDown(context, details),
+                    child: Image.asset(
+                      _isvisible == true
+                          ?
+                          // 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                          'redlabelsplit/' + split_image
+                          : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
                     ),
                   ),
-                  ),
-                  
+                  Stack(
+                    children: <Widget>[
+                      // Align(
+                      //   alignment: Alignment.centerLeft,
+                      //   child: FloatingActionButton(
+                      //       heroTag: "btn1",
+                      //       onPressed: () {
+                      //         updateAxialImage(-1);
+                      //       },
+                      //       child: const Icon(Icons.navigate_before)),
+                      // ),
 
-                  
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            answerAPressed = !answerAPressed;
-                          });
-                          updateAxialImage();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: (answerAPressed ? Colors.green : Colors.blue),
+                      Align(
+                        alignment: Alignment(0.0, 0.8),
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            Expanded(
+                                child: TextButton(
+                            child: Text("A".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerAPressed, answerACorrect)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerAPressed, answerACorrect)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              if (!learn) {
+                                setState(() {
+                                  answerAPressed = true;
+                                  answerBPressed = false;
+                                  answerCPressed = false;
+                                  answerDPressed = false;
+                                });
+                              }
+
+                              // updateAxialImage();
+                            })),
+                            Spacer(),
+                            Expanded(
+                                child: TextButton(
+                            child: Text("B".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerBPressed, answerBCorrect)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerBPressed, answerBCorrect)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              if (!learn) {
+                                setState(() {
+                                  answerAPressed = false;
+                                  answerBPressed = true;
+                                  answerCPressed = false;
+                                  answerDPressed = false;
+                                });
+                              }
+
+                              // updateAxialImage();
+                            })),
+                            Spacer(),
+                            Expanded(
+                                child: TextButton(
+                            child: Text("C".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerCPressed, answerCCorrect)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerCPressed, answerCCorrect)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              if (!learn) {
+                                setState(() {
+                                  answerAPressed = false;
+                                  answerBPressed = false;
+                                  answerCPressed = true;
+                                  answerDPressed = false;
+                                });
+                              }
+
+                              // updateAxialImage();
+                            })),
+                            Spacer(),
+                            Expanded(
+                                child: TextButton(
+                            child: Text("D".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerDPressed, answerDCorrect)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerDPressed, answerDCorrect)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              if (!learn) {
+                                setState(() {
+                                  answerAPressed = false;
+                                  answerBPressed = false;
+                                  answerCPressed = false;
+                                  answerDPressed = true;
+                                });
+                              }
+
+                              // updateAxialImage();
+                            })),
+                            Spacer(),
+                          ],
                         ),
-                      child: Text('Submit')),
+                      ),
+
+                      Align(
+                        alignment: Alignment(0.0, 0.9),
+                        child: TextButton(
+                            child: Text(!learn ? "Submit".toUpperCase() : "Next".toUpperCase(),
+                                style: TextStyle(fontSize: 14)),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.all(15)),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xff5E81AC)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Color(0xff5E81AC))))),
+                            onPressed: () {
+                              setState(() {
+                                if (answerAPressed || answerBPressed || answerCPressed || answerDPressed) {
+                                  if (learn) {
+                                    updateAxialImage();
+                                    answerAPressed = false;
+                                    answerBPressed = false;
+                                    answerCPressed = false;
+                                    answerDPressed = false;
+                                  }
+                                  learn = !learn;
+                                }
+                                // interpret answer
+
+                              });
+                            }),
+                      ),
+
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: learn ?
+                        FloatingActionButton(
+                            heroTag: 'btn3',
+                            onPressed: () {
+                              setState(() {
+                                _isvisible = !_isvisible;
+                              });
+                            },
+                            child: (_isvisible)
+                                ? Icon(Icons.label_off)
+                                : Icon(Icons.label)) :
+                                Container(),
+                      ),
+                    ],
                   ),
-                  
                   Align(
-                    alignment: Alignment.bottomRight,
-                    child: FloatingActionButton(
-                        heroTag: 'btn3',
-                        onPressed: () {
-                          setState(() {
-                            _isvisible = !_isvisible;
-                          });
-                        },
-                        child: (_isvisible)
-                            ? Icon(Icons.label_off)
-                            : Icon(Icons.label)),
-                  ),
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                          padding: EdgeInsets.all(50),
+                          child: Text(
+                            structure,
+                            style: TextStyle(color: Colors.white, fontSize: 30),
+                          )))
                 ],
-              ),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Text(
-                        structure,
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      )))
-            ],
-          ))),
-
-
+              ))),
         ));
   }
-  
-  // MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
-  //   getColor(Set<MaterialState> states) {
-  //     if (answerAPressed) {
-  //       return colorPressed;
-  //     } else {
-  //       return color;
-  //     }
-  //   }
-  //   return MaterialStateProperty.resolveWith(getColor);
 
-  // }
+  Color getBackColor(bool pressed, bool correct) {
+    Color ret = Colors.black;
+    if (!learn && pressed) {
+      ret = Color(0xff5E81AC);
+    } else if (learn && pressed && correct) {
+      ret = Colors.green;
+    } else if (learn && pressed && !correct) {
+      ret = Colors.red;
+    }
+    return ret;
+  }
+
+  Color getForeColor(bool pressed, bool correct) {
+    if (pressed) {
+      return Colors.white;
+    } else {
+      return Color(0xff5E81AC);
+    }
+  }
+
 }
+
