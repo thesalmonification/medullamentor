@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -135,20 +137,30 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
 
   
 
-  void updateAxialImage(double dy) {
+  // void updateAxialImage(double dy) {
+  //   print('changed axial image');
+  //   setState(() {
+  //     //Random.nextInt(n) returns random integer from 0 to n-1
+  //     if (dy > 0) {
+  //       imageAxialNumber = (imageAxialNumber + 1) % 30;
+  //       split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
+  //       structure = "";
+  //     }
+  //     if (dy < 0) {
+  //       imageAxialNumber = (imageAxialNumber - 1) % 30;
+  //       split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
+  //       structure = "";
+  //     }
+  //   });
+  // }
+
+    void updateAxialImage() {
     print('changed axial image');
     setState(() {
-      //Random.nextInt(n) returns random integer from 0 to n-1
-      if (dy > 0) {
-        imageAxialNumber = (imageAxialNumber + 1) % 30;
-        split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
-        structure = "";
-      }
-      if (dy < 0) {
-        imageAxialNumber = (imageAxialNumber - 1) % 30;
-        split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
-        structure = "";
-      }
+      imageAxialNumber = Random().nextInt(30);
+      split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
+      structure = "";
+
     });
   }
 
@@ -197,7 +209,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text('Axial Brainstem'),
+          title: Text('Quiz Mode'),
         ),
         body: SizedBox.expand(
             child: Container(
@@ -220,7 +232,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                     Image.asset(
                   _isvisible == true
                       ?
-                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      // 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
                       'redlabelsplit/' + split_image
                       : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
                   fit: BoxFit.fitWidth,
@@ -233,21 +245,21 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
 
               Stack(
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: FloatingActionButton(
-                        heroTag: "btn1",
-                        onPressed: () {
-                          updateAxialImage(-1);
-                        },
-                        child: const Icon(Icons.navigate_before)),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: FloatingActionButton(
+                  //       heroTag: "btn1",
+                  //       onPressed: () {
+                  //         updateAxialImage(-1);
+                  //       },
+                  //       child: const Icon(Icons.navigate_before)),
+                  // ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: FloatingActionButton(
                         heroTag: 'btn2',
                         onPressed: () {
-                          updateAxialImage(1);
+                          updateAxialImage();
                         },
                         child: const Icon(Icons.navigate_next)),
                   ),
