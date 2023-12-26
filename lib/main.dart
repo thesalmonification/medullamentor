@@ -1,3 +1,4 @@
+import 'package:brainstem/quiz.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -306,7 +307,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             BorderRadius.circular(18.0),
                                         side: BorderSide(
                                             color: Color(0xff5E81AC))))),
-                            onPressed: () => null),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BrainstemQuiz()),
+                              );
+                            }),
                         SizedBox(height: 50),
                       ]))))),
       drawer: Drawer(
