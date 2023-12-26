@@ -197,6 +197,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
 
   
 
+  bool answerAPressed = false;
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -254,15 +255,80 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                   //       },
                   //       child: const Icon(Icons.navigate_before)),
                   // ),
+
                   Align(
-                    alignment: Alignment.centerRight,
-                    child: FloatingActionButton(
-                        heroTag: 'btn2',
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Row(
+                      children: [
+                        Expanded(child: ElevatedButton(
                         onPressed: () {
+                          setState(() {
+                            answerAPressed = !answerAPressed;
+                          });
                           updateAxialImage();
                         },
-                        child: const Icon(Icons.navigate_next)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
+                        ),
+                      child: Text('Answer'))),
+                      Expanded(child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            answerAPressed = !answerAPressed;
+                          });
+                          updateAxialImage();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
+                        ),
+                      child: Text('Answer'))),
+                      Expanded(child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            answerAPressed = !answerAPressed;
+                          });
+                          updateAxialImage();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
+                        ),
+                      child: Text('Answer'))),
+                      Expanded(child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            answerAPressed = !answerAPressed;
+                          });
+                          updateAxialImage();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: (answerAPressed ? Colors.blue : Colors.green),
+                        ),
+                      child: Text('Answer'))),
+                      ],
+                    ),
                   ),
+                  ),
+                  
+
+                  
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            answerAPressed = !answerAPressed;
+                          });
+                          updateAxialImage();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: (answerAPressed ? Colors.green : Colors.blue),
+                        ),
+                      child: Text('Submit')),
+                  ),
+                  
                   Align(
                     alignment: Alignment.bottomRight,
                     child: FloatingActionButton(
@@ -292,4 +358,16 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
 
         ));
   }
+  
+  // MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
+  //   getColor(Set<MaterialState> states) {
+  //     if (answerAPressed) {
+  //       return colorPressed;
+  //     } else {
+  //       return color;
+  //     }
+  //   }
+  //   return MaterialStateProperty.resolveWith(getColor);
+
+  // }
 }
