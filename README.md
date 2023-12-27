@@ -28,7 +28,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/thesalmonification/brainstem">
+  <a href="https://github.com/thesalmonification/medullamentor">
     <img src="logo/medullamentorlogo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -37,14 +37,14 @@
   <p align="center">
     Brainstem histology can be a challenging concept for many medical students. I wanted to create a tool to help students better learn brainstem anatomy! Medulla Mentor is a cross-platform app designed in Flutter to allow for interactive visualization of the brainstem. Data is courtesy of the Duke Center for In Vivo Microscopy under CC By-NC-SA 3.0.
     <br />
-    <a href="https://github.com/thesalmonification/brainstem"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/thesalmonification/medullamentor"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/thesalmonification/brainstem">View Demo</a>
+    <a href="https://github.com/thesalmonification/medullamentor">View Demo</a>
     ·
-    <a href="https://github.com/thesalmonification/brainstem/issues">Report Bug</a>
+    <a href="https://github.com/thesalmonification/medullamentor/issues">Report Bug</a>
     ·
-    <a href="https://github.com/thesalmonification/brainstem/issues">Request Feature</a>
+    <a href="https://github.com/thesalmonification/medullamentor/issues">Request Feature</a>
   </p>
 </div>
 
@@ -117,7 +117,7 @@ Medulla Mentor is built with Flutter for cross platform capability. Please insta
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/thesalmonification/brainstem.git
+   git clone https://github.com/thesalmonification/medullamentor.git
    ```
 2. Install Flutter packages
    ```sh
@@ -150,7 +150,7 @@ The iPad App can be found here: [![AppStore][AppStore.js]][AppStore-url]
 
 TODO
 
-See the [open issues](https://github.com/thesalmonification/brainstem/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/thesalmonification/medullamentor/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -195,7 +195,7 @@ Distributed under the CC By-NC-SA 3.0 license License. See `LICENSE.txt` for mor
 
 Duncan Salmon - duncanryansalmon@gmail.com
 
-Project Link: [https://github.com/thesalmonification/brainstem](https://github.com/thesalmonification/brainstem)
+Project Link: [https://github.com/thesalmonification/medullamentor](https://github.com/thesalmonification/medullamentor)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,16 +220,16 @@ TODO
 [Python-url]: https://www.python.org
 [Python.js]: https://img.shields.io/badge/python-000000?style=for-the-badge&logo=python&logoColor=white
 
-[contributors-shield]: https://img.shields.io/github/contributors/thesalmonification/brainstem.svg?style=for-the-badge
-[contributors-url]: https://github.com/thesalmonification/brainstem/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/thesalmonification/brainstem.svg?style=for-the-badge
-[forks-url]: https://github.com/thesalmonification/brainstem/network/members
-[stars-shield]: https://img.shields.io/github/stars/thesalmonification/brainstem.svg?style=for-the-badge
-[stars-url]: https://github.com/thesalmonification/brainstem/stargazers
-[issues-shield]: https://img.shields.io/github/issues/thesalmonification/brainstem.svg?style=for-the-badge
-[issues-url]: https://github.com/thesalmonification/brainstem/issues
-[license-shield]: https://img.shields.io/github/license/thesalmonification/brainstem.svg?style=for-the-badge
-[license-url]: https://github.com/thesalmonification/brainstem/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/thesalmonification/medullamentor.svg?style=for-the-badge
+[contributors-url]: https://github.com/thesalmonification/medullamentor/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/thesalmonification/medullamentor.svg?style=for-the-badge
+[forks-url]: https://github.com/thesalmonification/medullamentor/network/members
+[stars-shield]: https://img.shields.io/github/stars/thesalmonification/medullamentor.svg?style=for-the-badge
+[stars-url]: https://github.com/thesalmonification/medullamentor/stargazers
+[issues-shield]: https://img.shields.io/github/issues/thesalmonification/medullamentor.svg?style=for-the-badge
+[issues-url]: https://github.com/thesalmonification/medullamentor/issues
+[license-shield]: https://img.shields.io/github/license/thesalmonification/medullamentor.svg?style=for-the-badge
+[license-url]: https://github.com/thesalmonification/medullamentor/blob/master/LICENSE.txt
 
 [product-screenshot]: AppleStoreScreenshots/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
