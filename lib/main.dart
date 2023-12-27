@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
-
 List<Map> chat_json_data = [];
 
 List<Map> red_json_data = [];
@@ -47,12 +46,11 @@ Future<void> readJson() async {
 
 //these reads in the descriptions created by chat to display as tool tips next to the structure name...
 Future<void> readJsonChat() async {
-  String chat_response = await rootBundle.loadString(
-        'chatjson/chatdescriptions.json');
+  String chat_response =
+      await rootBundle.loadString('chatjson/chatdescriptions.json');
 
   final chat_data = await json.decode(chat_response);
   chat_json_data.add(chat_data);
-
 }
 
 Future<void> readJsonSplits() async {
@@ -450,10 +448,9 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   double y = 0.0;
   int imageAxialNumber = 15;
 
+  String location = "pons"; //I'm adding in a location string to show
 
-  String location = "pons"; //I'm adding in a location string to show 
-
-  String tooltipmsg = ""; //This string will hold the tool tip description for 
+  String tooltipmsg = ""; //This string will hold the tool tip description for
   bool tooltipvisibility = false; //I want to hide the
 
   NumberFormat formatter = NumberFormat("00000");
@@ -472,9 +469,9 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         structure =
             ""; //Don't bother showing any text if it's not an important structure.
 
-        tooltipmsg = ''; //don't show a tooltip description of the structure if there's no structure listed.
-        tooltipvisibility = false; 
-
+        tooltipmsg =
+            ''; //don't show a tooltip description of the structure if there's no structure listed.
+        tooltipvisibility = false;
       } else {
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
         //    [y.toInt().toString()];
@@ -496,20 +493,15 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
           structure = 'To Be Labeled';
         }
 
-        
-
         //here's where I update the tooltip message to describe the structure from chat gpt.
         try {
           tooltipmsg = chat_json_data[0][structure];
-        }
-        catch (e) {
+        } catch (e) {
           tooltipmsg = 'Description Coming Soon!';
         }
-        
+
         tooltipvisibility = true;
       }
-
-
 
       //Attempting to add in the split json reference here.
       split_image = red_split_json_data[imageAxialNumber][lookupstructure];
@@ -593,8 +585,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       //pons - 17 - 8
       //medulla - 7 - 0
       //midbrain - >=18
-
-
     });
   }
 
@@ -634,109 +624,108 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text('Axial Brainstem'),
-        ),
-        body: SizedBox.expand(
-          child: Container(
-              color: Color(0xFF1b1b1b), //Colors.black,
-              child: InteractiveViewer(
-                  child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(
-                    'red/image_${formatter.format(imageAxialNumber)}.png',
-                    fit: BoxFit.fitWidth, //cover
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text('Axial Brainstem'),
+      ),
+      body: SizedBox.expand(
+        child: Container(
+            color: Color(0xFF1b1b1b), //Colors.black,
+            child: InteractiveViewer(
+                child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  'red/image_${formatter.format(imageAxialNumber)}.png',
+                  fit: BoxFit.fitWidth, //cover
+                  //height: double.infinity,
+                  //width: double.infinity,
+                  alignment: Alignment.center,
+                ),
+                InkWell(
+                  onTapDown: (details) => onTapDown(context, details),
+                  child: Image.asset(
+                    _isvisible == true
+                        ?
+                        //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                        'redlabelsplit/' + split_image
+                        : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                    fit: BoxFit.fitWidth,
                     //height: double.infinity,
                     //width: double.infinity,
                     alignment: Alignment.center,
                   ),
-                  InkWell(
-                    onTapDown: (details) => onTapDown(context, details),
-                    child: Image.asset(
-                      _isvisible == true
-                          ?
-                          //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                          'redlabelsplit/' + split_image
-                          : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
+                ),
+                Stack(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: FloatingActionButton(
+                          heroTag: "btn1",
+                          onPressed: () {
+                            updateAxialImage(-1);
+                          },
+                          child: const Icon(Icons.navigate_before)),
                     ),
-                  ),
-                  Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: FloatingActionButton(
-                            heroTag: "btn1",
-                            onPressed: () {
-                              updateAxialImage(-1);
-                            },
-                            child: const Icon(Icons.navigate_before)),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: FloatingActionButton(
-                            heroTag: 'btn2',
-                            onPressed: () {
-                              updateAxialImage(1);
-                            },
-                            child: const Icon(Icons.navigate_next)),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: FloatingActionButton(
-                            heroTag: 'btn3',
-                            onPressed: () {
-                              setState(() {
-                                _isvisible = !_isvisible;
-                              });
-                            },
-                            child: (_isvisible)
-                                ? Icon(Icons.label_off)
-                                : Icon(Icons.label)),
-                      ),
-                    ],
-                  ),
-                  Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                          padding: EdgeInsets.all(50),
-                          child: Text(
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: FloatingActionButton(
+                          heroTag: 'btn2',
+                          onPressed: () {
+                            updateAxialImage(1);
+                          },
+                          child: const Icon(Icons.navigate_next)),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: FloatingActionButton(
+                          heroTag: 'btn3',
+                          onPressed: () {
+                            setState(() {
+                              _isvisible = !_isvisible;
+                            });
+                          },
+                          child: (_isvisible)
+                              ? Icon(Icons.label_off)
+                              : Icon(Icons.label)),
+                    ),
+                  ],
+                ),
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                        padding: EdgeInsets.all(50),
+                        child: Row(children: [
+                          Text(
                             structure,
                             style: TextStyle(color: Colors.white, fontSize: 30),
-                          )))
-                ],
-
-              ))),
-
-              ),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Row(children: [Text(
-                        structure,
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      ), SizedBox(width: 5),Visibility(child: Tooltip(child: Icon(Icons.help,size: 40,color: Colors.white,),message: tooltipmsg,),visible: tooltipvisibility,)]))),
-              Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Text(
-                        'Location: '+ location,
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      )))
-            ],
-          ))),
-
-
-
-        ));
+                          ),
+                          SizedBox(width: 5),
+                          Visibility(
+                            child: Tooltip(
+                              child: Icon(
+                                Icons.help,
+                                size: 40,
+                                color: Colors.white,
+                              ),
+                              message: tooltipmsg,
+                            ),
+                            visible: tooltipvisibility,
+                          )
+                        ]))),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                        padding: EdgeInsets.all(50),
+                        child: Text(
+                          'Location: ' + location,
+                          style: TextStyle(color: Colors.white, fontSize: 30),
+                        ))),
+              ],
+            ))),
+      ),
+    );
   }
 }
 
