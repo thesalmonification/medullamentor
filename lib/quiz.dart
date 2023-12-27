@@ -247,7 +247,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                                             MaterialStateProperty.all<Color>(
                                                 getForeColor(answerAPressed,
                                                     correctAnswerIndex == 0)),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.purple)))),
                                     onPressed: () {
                                       if (!learn) {
                                         setState(() {
@@ -277,7 +277,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                                             MaterialStateProperty.all<Color>(
                                                 getForeColor(answerBPressed,
                                                     correctAnswerIndex == 1)),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.purple)))),
                                     onPressed: () {
                                       if (!learn) {
                                         setState(() {
@@ -307,7 +307,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                                             MaterialStateProperty.all<Color>(
                                                 getForeColor(answerCPressed,
                                                     correctAnswerIndex == 2)),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.purple)))),
                                     onPressed: () {
                                       if (!learn) {
                                         setState(() {
@@ -337,7 +337,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                                             MaterialStateProperty.all<Color>(
                                                 getForeColor(answerDPressed,
                                                     correctAnswerIndex == 3)),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.purple)))),
                                     onPressed: () {
                                       if (!learn) {
                                         setState(() {
@@ -366,15 +366,16 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xff5E81AC)),
+                                //foregroundColor:
+                                //    MaterialStateProperty.all<Color>(
+                                //        Colors.purple),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Color(0xff5E81AC))))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             onPressed: () {
                               setState(() {
                                 if (answerAPressed ||
@@ -428,7 +429,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   Color getBackColor(bool pressed, bool correct) {
     Color ret = Color(0xFF1b1b1b); //Colors.black;
     if (!learn && pressed) {
-      ret = Color(0xff5E81AC);
+      ret = Colors.purple;
     } else if (learn && correct) {
       ret = Colors.green;
     } else if (learn && pressed && !correct) {
@@ -441,7 +442,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
     if (pressed || (learn && correct)) {
       return Colors.white;
     } else {
-      return Color(0xff5E81AC);
+      return Colors.purple;
     }
   }
 }

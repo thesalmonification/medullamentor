@@ -144,11 +144,11 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        colorScheme: ColorScheme.dark(),
         primarySwatch: primaryBlack,
         //scaffoldBackgroundColor: const Color(0xFFEFEFEF)
       ),
-      home: const MyHomePage(
-          title: 'Medulla Mentor - Explore the Human Brainstem'),
+      home: const MyHomePage(title: 'Explore the Human Brainstem'),
     );
   }
 }
@@ -190,7 +190,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 'Brainstem Data courtesy of the Duke Center for in Vivo Microscopy\n'
                 'First published by Adil et. al 2021\n'
                 '(https://doi.org/10.1016/j.neuroimage.2021.118135)\n'
-                '\nThis website utilizes the data under the creative commons license.'),
+                '\nMedulla Mentor utilizes the data under the creative commons license.\n'
+                '\nMedulla Mentor is offered completely for free and is for EDUCATIONAL PURPOSES ONLY.'),
             actions: <Widget>[
               TextButton(
                 style: TextButton.styleFrom(
@@ -251,22 +252,51 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'logo/medullamentorlogo.png',
+                                scale: 12,
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                'Medulla Mentor',
+                                style: TextStyle(
+                                    fontSize: 35, fontStyle: FontStyle.italic),
+                              )
+                            ]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 100,
+                              ),
+                              Text(
+                                'A Digital Brainstem Atlas',
+                                style: TextStyle(
+                                    fontSize: 20, fontStyle: FontStyle.italic),
+                              ),
+                            ]),
+                        SizedBox(height: 50),
                         TextButton(
                             child: Text("Axial Brainstem".toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xff5E81AC)),
+                                //foregroundColor:
+                                //    MaterialStateProperty.all<Color>(
+                                //        Color(0xff5E81AC)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -283,15 +313,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xff5E81AC)),
+                                //foregroundColor:
+                                //    MaterialStateProperty.all<Color>(
+                                //        Color(0xff5E81AC)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Color(0xff5E81AC))))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             onPressed: () {
                               //Navigator.push(
                               //  context,
@@ -308,15 +339,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xff5E81AC)),
+                                //foregroundColor:
+                                //    MaterialStateProperty.all<Color>(
+                                //        Color(0xff5E81AC)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Color(0xff5E81AC))))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             onPressed: () {
                               //Navigator.push(
                               //  context,
@@ -331,16 +363,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xff5E81AC)),
+                                //foregroundColor:
+                                //    MaterialStateProperty.all<Color>(
+                                //       Color(0xff5E81AC)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -358,14 +390,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: Color(0xFF1b1b1b), //Colors.black,
               ),
               child: Center(
-                  child: Text(
-                'Medulla Mentor',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                  child: Image.asset(
+                'logo/medullamentorlogo.png',
+                scale: 12,
               )),
             ),
             ListTile(
