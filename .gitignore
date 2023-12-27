@@ -42,3 +42,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#Should not show my license key
+upload-keystore.jks
+
+#Should not show the data
+
+#Do not show any .ipynb 
+*.ipynb
