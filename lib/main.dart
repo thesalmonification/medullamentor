@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-import 'quiz.dart';
 
 List<Map> red_json_data = [];
 List<Map> green_json_data = [];
@@ -17,6 +16,7 @@ List<Map> red_split_json_data = [];
 List<Map> green_split_json_data = [];
 List<Map> yellow_split_json_data = [];
 
+// Lists of the individual files and structures with the same index for the red data
 List<String> files = [];
 List<dynamic> structures = [];
 
@@ -334,7 +334,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         side: BorderSide(
                                             color: Color(0xff5E81AC))))),
                             onPressed: () {
-                              generateQuestion();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

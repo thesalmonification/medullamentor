@@ -11,51 +11,6 @@ import 'dart:convert';
 import 'main.dart';
 
 
-List<String> chosenFiles = [];
-List<String> chosenStructs = [];
-
-bool answerAPressed = false;
-bool answerBPressed = false;
-bool answerCPressed = false;
-bool answerDPressed = false;
-
-// bool answerACorrect = false;
-// bool answerBCorrect = false;
-// bool answerCCorrect = false;
-// bool answerDCorrect = false;
-
-bool learn = false;
-int correctAnswerIndex = 0;
-
-void generateQuestion() {
-  // generate 4 choices
-  int chosen = 0;
-  int total = files.length;
-  chosenFiles = [];
-  chosenStructs = [];
-  // print(total);
-  // print(structures.length);
-  while (chosen < 4) {
-    int index = Random().nextInt(total);
-    String currentFile = files[index];
-    String currentStruct = structures[index].toString()
-          .replaceAll(' left', '')
-          .replaceAll(' right', '')
-          .trim()
-          .toString();
-    // print(chosen);
-    if (!chosenFiles.contains(currentFile) && !chosenStructs.contains(currentStruct) && !currentStruct.contains("Unknown")) {
-      chosenFiles.add(currentFile);
-      chosenStructs.add(currentStruct);
-      chosen += 1;
-    }
-  }
-  print(chosenFiles);
-  print(chosenStructs);
-  print('changed axial image');
-  correctAnswerIndex = Random().nextInt(4);
-}
-
 class BrainstemQuiz extends StatefulWidget {
   BrainstemQuiz({super.key});
   //So will try async function here...
@@ -78,6 +33,18 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   double x = 0.0;
   double y = 0.0;
   int imageAxialNumber = 0;
+
+  List<String> chosenFiles = [];
+  List<String> chosenStructs = [];
+
+  bool answerAPressed = false;
+  bool answerBPressed = false;
+  bool answerCPressed = false;
+  bool answerDPressed = false;
+
+
+  bool learn = false;
+  int correctAnswerIndex = 0;
 
   NumberFormat formatter = NumberFormat("00000");
 
@@ -129,78 +96,51 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   }
   ////////////////////////////////////////////////////////
 
-  //I'm adding a list of strings to account for the inccorectly labeled structures...
-  /*List<String> incorrect_structures = [
-    'optic chiasm',
-    'motor trigeminal nucleus',
-    'inferior colliculus',
-    'principal sensory trigeminal nucleus',
-    'cuneate nucleus',
-    'corticospinal tract',
-    'pulvinar nuclei',
-    'hypoglossal nucleus',
-    'abducens nucleus',
-    'obex',
-    'mesencephalic trigeminal tract',
-    'cerebral aqueduct',
-    'motor trigeminal nucleus',
-    'principal sensory trigeminal nucleus',
-    'spinal trigeminal nucleus interpolaris',
-    'middle cerebellar peduncle',
-    'pulvinar nuclei',
-    'hypoglossal nucleus',
-    'abducens nucleus',
-    'abducens nerve',
-    'superior colliculus',
-    'trigeminal nerve',
-    'trigeminal nerve',
-    'anterior commissure',
-    'inferior colliculus',
-    'decussation superior cerebellar peduncles',
-    'inferior cerebellar peduncle',
-    'inferior cerebellar peduncle',
-    'red nucleus',
-    'red nucleus',
-    'facial nerve',
-    'pyramidal decussation',
-    'thalamus excluding pulvinar',
-    'cuneate fasciculus',
-    'cuneate fasciculus'
-  ];*/
-
-  // void updateAxialImage(double dy) {
-  //   print('changed axial image');
-  //   setState(() {
-  //     //Random.nextInt(n) returns random integer from 0 to n-1
-  //     if (dy > 0) {
-  //       imageAxialNumber = (imageAxialNumber + 1) % 30;
-  //       split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
-  //       structure = "";
-  //     }
-  //     if (dy < 0) {
-  //       imageAxialNumber = (imageAxialNumber - 1) % 30;
-  //       split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
-  //       structure = "";
-  //     }
-  //   });
-  // }
 
 
+  void generateQuestion() {
 
-
-  void updateAxialImage() {
-
-    generateQuestion();
+    // generate 4 choices
+    int chosen = 0;
+    int total = files.length;
+    chosenFiles = [];
+    chosenStructs = [];
+    // print(total);
+    // print(structures.length);
+    while (chosen < 4) {
+      int index = Random().nextInt(total);
+      String currentFile = files[index];
+      String currentStruct = structures[index].toString()
+            .replaceAll(' left', '')
+            .replaceAll(' right', '')
+            .trim()
+            .toString();
+      // print(chosen);
+      if (!chosenFiles.contains(currentFile) && !chosenStructs.contains(currentStruct) && !currentStruct.contains("Unknown")) {
+        chosenFiles.add(currentFile);
+        chosenStructs.add(currentStruct);
+        chosen += 1;
+      }
+    }
+    print(chosenFiles);
+    print(chosenStructs);
+    // print('changed axial image');
+    correctAnswerIndex = Random().nextInt(4);
+    structure = chosenStructs[correctAnswerIndex];
+    lookupstructure = structures[files.indexOf(chosenFiles[correctAnswerIndex])];
+    imageAxialNumber = int.parse(chosenFiles[correctAnswerIndex].substring(9,11));
 
     setState(() {
-      imageAxialNumber = int.parse(chosenStructs[correctAnswerIndex].substring(7, 13));
-      split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
-      structure = "";
+      print(imageAxialNumber);
+
+      split_image = red_split_json_data[imageAxialNumber][lookupstructure];
+      structure = chosenStructs[correctAnswerIndex];
     });
   }
 
   @override
   void initState() {
+    generateQuestion();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog<void>(
         context: context,
@@ -249,7 +189,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                 alignment: Alignment.center,
                 children: [
                   Image.asset(
-                    chosenFiles[correctAnswerIndex],
+                    'redlabelsplit/' + chosenFiles[correctAnswerIndex],
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
@@ -428,7 +368,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                               setState(() {
                                 if (answerAPressed || answerBPressed || answerCPressed || answerDPressed) {
                                   if (learn) {
-                                    updateAxialImage();
+                                    generateQuestion();
                                     answerAPressed = false;
                                     answerBPressed = false;
                                     answerCPressed = false;
