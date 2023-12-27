@@ -242,6 +242,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
+        backgroundColor: Color(0xFF1b1b1b),
         title: Text(widget.title),
       ),
       body: SafeArea(
@@ -659,6 +660,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
+        backgroundColor: Color(0xFF1b1b1b),
         title: Text('Axial Brainstem'),
       ),
       body: SizedBox.expand(
@@ -922,6 +924,7 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
+          backgroundColor: Color(0xFF1b1b1b),
           title: Text('Coronal Brainstem'),
         ),
         body: SizedBox.expand(
@@ -1199,6 +1202,7 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
+          backgroundColor: Color(0xFF1b1b1b),
           title: Text('Saggital Brainstem'),
         ),
         body: SizedBox.expand(
