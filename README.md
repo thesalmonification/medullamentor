@@ -93,14 +93,9 @@ Brainstem anatomy is an integral part of medical education, where it aids in und
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Python][Python.js]][Next-url]
+* [![Flutter][Flutter.js]][Flutter-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -221,6 +216,11 @@ Project Link: [https://github.com/thesalmonification/brainstem](https://github.c
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[Flutter-url]: https://flutter.dev
+[Flutter.js]: https://img.shields.io/badge/flutter-000000?style=for-the-badge&logo=flutter&logoColor=white
+[Python-url]: https://www.python.org
+[Python.js]: https://img.shields.io/badge/python-000000?style=for-the-badge&logo=python&logoColor=white
+
 [contributors-shield]: https://img.shields.io/github/contributors/thesalmonification/brainstem.svg?style=for-the-badge
 [contributors-url]: https://github.com/thesalmonification/brainstem/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/thesalmonification/brainstem.svg?style=for-the-badge
@@ -232,7 +232,7 @@ Project Link: [https://github.com/thesalmonification/brainstem](https://github.c
 [license-shield]: https://img.shields.io/github/license/thesalmonification/brainstem.svg?style=for-the-badge
 [license-url]: https://github.com/thesalmonification/brainstem/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://linkedin.com/in/duncan-salmon
 [product-screenshot]: AppleStoreScreenshots/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
