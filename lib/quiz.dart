@@ -10,6 +10,52 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'main.dart';
 
+
+List<String> chosenFiles = [];
+List<String> chosenStructs = [];
+
+bool answerAPressed = false;
+bool answerBPressed = false;
+bool answerCPressed = false;
+bool answerDPressed = false;
+
+// bool answerACorrect = false;
+// bool answerBCorrect = false;
+// bool answerCCorrect = false;
+// bool answerDCorrect = false;
+
+bool learn = false;
+int correctAnswerIndex = 0;
+
+void generateQuestion() {
+  // generate 4 choices
+  int chosen = 0;
+  int total = files.length;
+  chosenFiles = [];
+  chosenStructs = [];
+  // print(total);
+  // print(structures.length);
+  while (chosen < 4) {
+    int index = Random().nextInt(total);
+    String currentFile = files[index];
+    String currentStruct = structures[index].toString()
+          .replaceAll(' left', '')
+          .replaceAll(' right', '')
+          .trim()
+          .toString();
+    // print(chosen);
+    if (!chosenFiles.contains(currentFile) && !chosenStructs.contains(currentStruct) && !currentStruct.contains("Unknown")) {
+      chosenFiles.add(currentFile);
+      chosenStructs.add(currentStruct);
+      chosen += 1;
+    }
+  }
+  print(chosenFiles);
+  print(chosenStructs);
+  print('changed axial image');
+  correctAnswerIndex = Random().nextInt(4);
+}
+
 class BrainstemQuiz extends StatefulWidget {
   BrainstemQuiz({super.key});
   //So will try async function here...
@@ -17,6 +63,7 @@ class BrainstemQuiz extends StatefulWidget {
   @override
   State<BrainstemQuiz> createState() => _BrainstemQuizState();
 }
+
 
 class _BrainstemQuizState extends State<BrainstemQuiz> {
   List<String> incorrect_structures = [];
@@ -30,7 +77,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   bool _isvisible = true;
   double x = 0.0;
   double y = 0.0;
-  int imageAxialNumber = 15;
+  int imageAxialNumber = 0;
 
   NumberFormat formatter = NumberFormat("00000");
 
@@ -138,10 +185,15 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   //   });
   // }
 
+
+
+
   void updateAxialImage() {
-    print('changed axial image');
+
+    generateQuestion();
+
     setState(() {
-      imageAxialNumber = Random().nextInt(30);
+      imageAxialNumber = int.parse(chosenStructs[correctAnswerIndex].substring(7, 13));
       split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
       structure = "";
     });
@@ -174,17 +226,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         }));
   }
 
-  bool answerAPressed = false;
-  bool answerBPressed = false;
-  bool answerCPressed = false;
-  bool answerDPressed = false;
 
-  bool answerACorrect = true;
-  bool answerBCorrect = false;
-  bool answerCCorrect = false;
-  bool answerDCorrect = false;
-
-  bool learn = false;
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -207,7 +249,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                 alignment: Alignment.center,
                 children: [
                   Image.asset(
-                    'red/image_${formatter.format(imageAxialNumber)}.png',
+                    chosenFiles[correctAnswerIndex],
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
                     //width: double.infinity,
@@ -246,13 +288,13 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text("A".toUpperCase(),
+                            child: Text(chosenStructs[0].toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerAPressed, answerACorrect)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerAPressed, answerACorrect)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerAPressed, correctAnswerIndex == 0)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerAPressed, correctAnswerIndex == 0)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -275,13 +317,13 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text("B".toUpperCase(),
+                            child: Text(chosenStructs[1].toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerBPressed, answerBCorrect)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerBPressed, answerBCorrect)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerBPressed, correctAnswerIndex == 1)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerBPressed, correctAnswerIndex == 1)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -304,13 +346,13 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text("C".toUpperCase(),
+                            child: Text(chosenStructs[2].toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerCPressed, answerCCorrect)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerCPressed, answerCCorrect)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerCPressed, correctAnswerIndex == 2)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerCPressed, correctAnswerIndex == 2)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -333,13 +375,13 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text("D".toUpperCase(),
+                            child: Text(chosenStructs[3].toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerDPressed, answerDCorrect)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerDPressed, answerDCorrect)),
+                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerDPressed, correctAnswerIndex == 3)),
+                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerDPressed, correctAnswerIndex == 3)),
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(

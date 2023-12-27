@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-
+import 'quiz.dart';
 
 List<Map> red_json_data = [];
 List<Map> green_json_data = [];
@@ -16,6 +16,10 @@ List<Map> yellow_json_data = [];
 List<Map> red_split_json_data = [];
 List<Map> green_split_json_data = [];
 List<Map> yellow_split_json_data = [];
+
+List<String> files = [];
+List<dynamic> structures = [];
+
 
 // Fetch content from the json file
 Future<void> readJson() async {
@@ -55,9 +59,30 @@ Future<void> readJsonSplits() async {
     green_split_json_data.add(green_split_data);
     red_split_json_data.add(red_split_data);
     yellow_split_json_data.add(yellow_split_data);
+
+
   }
 
+
   //print(red_json_data[0]["648"]["23"]);
+}
+
+void readCorrectedJson() async {
+  Map<String, dynamic> jsonData = await loadJsonData();
+  
+  // Extract keys and mappings
+  jsonData.forEach((key, value) {
+    files.add(key);
+    structures.add(value);
+  });
+
+  // print("Keys: $files");
+  // print("Mappings: $structures");
+}
+
+Future<Map<String, dynamic>> loadJsonData() async {
+  String jsonData = await rootBundle.loadString('redLabelSplitMerged.json');
+  return json.decode(jsonData);
 }
 
 _launchURL() async {
@@ -71,6 +96,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   readJson();
   readJsonSplits();
+  readCorrectedJson();
 
   runApp(const MyApp());
 }
@@ -308,6 +334,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         side: BorderSide(
                                             color: Color(0xff5E81AC))))),
                             onPressed: () {
+                              generateQuestion();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
