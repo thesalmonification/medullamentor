@@ -21,7 +21,7 @@ class BrainstemQuiz extends StatefulWidget {
 
 
 class _BrainstemQuizState extends State<BrainstemQuiz> {
-  List<String> incorrect_structures = [];
+  // List<String> incorrect_structures = [];
 
   String structure = ""; //this is the string shown at the top of the screen...
   String lookupstructure =
@@ -30,8 +30,8 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   int lastindex = 0;
 
   bool _isvisible = true;
-  double x = 0.0;
-  double y = 0.0;
+  // double x = 0.0;
+  // double y = 0.0;
   int imageAxialNumber = 0;
 
   List<String> chosenFiles = [];
@@ -42,7 +42,6 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   bool answerCPressed = false;
   bool answerDPressed = false;
 
-
   bool learn = false;
   int correctAnswerIndex = 0;
 
@@ -50,50 +49,50 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
 
   ///////////////////////////////////////////////////////
 
-  void onTapDown(BuildContext context, TapDownDetails details) {
-    setState(() {
-      x = details.localPosition.dx;
-      y = details.localPosition.dy;
+  // void onTapDown(BuildContext context, TapDownDetails details) {
+  //   setState(() {
+  //     x = details.localPosition.dx;
+  //     y = details.localPosition.dy;
 
-      if (red_json_data[imageAxialNumber][x.toInt().toString()]
-              [y.toInt().toString()] ==
-          "Material93") {
-        lookupstructure = "Unknown Tissue";
-        structure =
-            ""; //Don't bother showing any text if it's not an important structure.
-      } else {
-        //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
-        //    [y.toInt().toString()];
+  //     if (red_json_data[imageAxialNumber][x.toInt().toString()]
+  //             [y.toInt().toString()] ==
+  //         "Material93") {
+  //       lookupstructure = "Unknown Tissue";
+  //       structure =
+  //           ""; //Don't bother showing any text if it's not an important structure.
+  //     } else {
+  //       //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+  //       //    [y.toInt().toString()];
 
-        //Here I get the structure in the raw form for a lookup
-        lookupstructure = red_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()];
+  //       //Here I get the structure in the raw form for a lookup
+  //       lookupstructure = red_json_data[imageAxialNumber][x.toInt().toString()]
+  //           [y.toInt().toString()];
 
-        //This is the text shown on screen. I remove any "left" or "right" from the string.
-        structure = red_json_data[imageAxialNumber][x.toInt().toString()]
-                [y.toInt().toString()]
-            .toString()
-            .replaceAll(' left', '')
-            .replaceAll(' right', '')
-            .trim()
-            .toString();
+  //       //This is the text shown on screen. I remove any "left" or "right" from the string.
+  //       structure = red_json_data[imageAxialNumber][x.toInt().toString()]
+  //               [y.toInt().toString()]
+  //           .toString()
+  //           .replaceAll(' left', '')
+  //           .replaceAll(' right', '')
+  //           .trim()
+  //           .toString();
 
-        if (incorrect_structures.contains(structure)) {
-          structure = 'To Be Labeled';
-        }
-      }
+  //       if (incorrect_structures.contains(structure)) {
+  //         structure = 'To Be Labeled';
+  //       }
+  //     }
 
-      //Attempting to add in the split json reference here.
-      split_image = red_split_json_data[imageAxialNumber][lookupstructure];
-      //split_image = red_split_json_data[00006];
+  //     //Attempting to add in the split json reference here.
+  //     split_image = red_split_json_data[imageAxialNumber][lookupstructure];
+  //     //split_image = red_split_json_data[00006];
 
-      ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
+  //     ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
 
-      //print([x, y]);
-      //print(red_json_data[imageAxialNumber][x.toInt().toString()]
-      //    [y.toInt().toString()]);
-    });
-  }
+  //     //print([x, y]);
+  //     //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+  //     //    [y.toInt().toString()]);
+  //   });
+  // }
   ////////////////////////////////////////////////////////
 
 
@@ -189,6 +188,13 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                 alignment: Alignment.center,
                 children: [
                   Image.asset(
+                    'red/image_${formatter.format(imageAxialNumber)}.png',
+                    fit: BoxFit.fitWidth, //cover
+                    //height: double.infinity,
+                    //width: double.infinity,
+                    alignment: Alignment.center,
+                  ),
+                  Image.asset(
                     'redlabelsplit/' + chosenFiles[correctAnswerIndex],
                     fit: BoxFit.fitWidth, //cover
                     //height: double.infinity,
@@ -196,7 +202,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                     alignment: Alignment.center,
                   ),
                   InkWell(
-                    onTapDown: (details) => onTapDown(context, details),
+                    // onTapDown: (details) => onTapDown(context, details),
                     child: Image.asset(
                       _isvisible == true
                           ?
@@ -403,8 +409,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                       alignment: Alignment.topCenter,
                       child: Padding(
                           padding: EdgeInsets.all(50),
-                          child: Text(
-                            structure,
+                          child: Text( learn ? structure : "",
                             style: TextStyle(color: Colors.white, fontSize: 30),
                           )))
                 ],
@@ -416,7 +421,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
     Color ret = Colors.black;
     if (!learn && pressed) {
       ret = Color(0xff5E81AC);
-    } else if (learn && pressed && correct) {
+    } else if (learn && correct) {
       ret = Colors.green;
     } else if (learn && pressed && !correct) {
       ret = Colors.red;
@@ -425,7 +430,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   }
 
   Color getForeColor(bool pressed, bool correct) {
-    if (pressed) {
+    if (pressed || (learn && correct)) {
       return Colors.white;
     } else {
       return Color(0xff5E81AC);
