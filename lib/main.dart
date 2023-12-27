@@ -734,17 +734,17 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                             style: TextStyle(color: Colors.white, fontSize: 30),
                           ),
                           SizedBox(width: 5),
-                          Visibility(
-                            child: Tooltip(
-                              child: Icon(
-                                Icons.help,
-                                size: 40,
-                                color: Colors.white,
-                              ),
-                              message: tooltipmsg,
-                            ),
-                            visible: tooltipvisibility,
-                          )
+                          //Visibility(
+                          //  child: Tooltip(
+                          //    child: Icon(
+                          //      Icons.help,
+                          //      size: 40,
+                          //      color: Colors.white,
+                          //    ),
+                          //    message: tooltipmsg,
+                          //  ),
+                          //  visible: tooltipvisibility,
+                          //)
                         ]))),
                 Align(
                     alignment: Alignment.bottomCenter,
