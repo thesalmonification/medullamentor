@@ -40,7 +40,7 @@
     <a href="https://github.com/thesalmonification/medullamentor"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/thesalmonification/medullamentor">View Demo</a>
+    <a href="https://medullamentor.web.app">View Demo</a>
     ·
     <a href="https://github.com/thesalmonification/medullamentor/issues">Report Bug</a>
     ·
