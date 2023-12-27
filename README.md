@@ -83,9 +83,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://medullamentor.web.app)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `thesalmonification`, `brainstem`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `Medulla Mentor`, `project_description`
+Brainstem anatomy is an integral part of medical education, where it aids in understanding clinical presentations and the pathophysiology of neurological disease. Despite advances in digital anatomy resources, current methods for learning the brainstem rely largely on flashcards and outdated histology slide websites. Medulla Mentor is a free-to-use, interactive website for students to learn brainstem anatomy in a modern digital environment.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -114,10 +114,10 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-Medulla Mentor is built with Flutter for Cross Platform 
-* npm
-  ```sh
-  npm install npm@latest -g
+Medulla Mentor is built with Flutter for cross platform capability. Please install Flutter using the official guide. 
+* Flutter Guide
+  ```
+  https://docs.flutter.dev/get-started/install
   ```
 
 ### Installation
@@ -144,9 +144,9 @@ Medulla Mentor is built with Flutter for Cross Platform
 
 Medulla Mentor can be accessed on the Web and as an iPad App.
 
-The Web App can be found [Here][https://medullamentor.web.app]
+The Web App can be found [Here](https://medullamentor.web.app)
 
-The iPad App can be found [Here][https://apps.apple.com/us/app/medulla-mentor/id6469579767]
+The iPad App can be found [Here](https://apps.apple.com/us/app/medulla-mentor/id6469579767)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -200,7 +200,7 @@ Distributed under the CC By-NC-SA 3.0 license License. See `LICENSE.txt` for mor
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Duncan Salmon - duncanryansalmon@gmail.com
 
 Project Link: [https://github.com/thesalmonification/brainstem](https://github.com/thesalmonification/brainstem)
 
@@ -233,7 +233,7 @@ Project Link: [https://github.com/thesalmonification/brainstem](https://github.c
 [license-url]: https://github.com/thesalmonification/brainstem/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: 'AppleStoreScreenshots/Simulator Screenshot - iPad Pro (12.9-inch) (6th generation) - 2023-10-15 at 20.31.54.png'
+[product-screenshot]: AppleStoreScreenshots/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
