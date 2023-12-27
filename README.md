@@ -22,7 +22,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -36,7 +35,7 @@
 <h3 align="center">Medulla Mentor</h3>
 
   <p align="center">
-    Brainstem histology can be a challenging concept for many medical students. I wanted to create a tool to help students better learn brainstem anatomy! Medulla Mentor is a cross-platform app designed in Flutter to allow for interactive visualization of the brainstem.
+    Brainstem histology can be a challenging concept for many medical students. I wanted to create a tool to help students better learn brainstem anatomy! Medulla Mentor is a cross-platform app designed in Flutter to allow for interactive visualization of the brainstem. Data is courtesy of the Duke Center for In Vivo Microscopy under CC By-NC-SA 3.0.
     <br />
     <a href="https://github.com/thesalmonification/brainstem"><strong>Explore the docs »</strong></a>
     <br />
@@ -231,8 +230,7 @@ TODO
 [issues-url]: https://github.com/thesalmonification/brainstem/issues
 [license-shield]: https://img.shields.io/github/license/thesalmonification/brainstem.svg?style=for-the-badge
 [license-url]: https://github.com/thesalmonification/brainstem/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/duncan-salmon
+
 [product-screenshot]: AppleStoreScreenshots/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
