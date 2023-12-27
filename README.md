@@ -178,7 +178,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Data of the Human Brainstem is courtesy of the Duke Center In Vivo Microscopy. the data is under the CC By-NC-SA 3.0 license, meaning any derived works are used for **non-commercial** and **educational** purposes only. Any use of the data must cite the original creators:
+Data of the Human Brainstem is **courtesy of the Duke Center In Vivo Microscopy**. the data is under the CC By-NC-SA 3.0 license, meaning any derived works are used for **non-commercial** and **educational** purposes only. Any use of the data must cite the original creators:
 
 ```
 Adil et al 2021
@@ -214,8 +214,8 @@ TODO
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[AppStore-url]: https://img.shields.io/badge/appstore-000000?style=for-the-badge&logo=appstore&logoColor=white](https://apps.apple.com/us/app/medulla-mentor/id6469579767
-[AppStore.js]: https://apps.apple.com/us/app/medulla-mentor/id6469579767
+[AppStore.js]: https://img.shields.io/badge/appstore-000000?style=for-the-badge&logo=appstore&logoColor=white](https://apps.apple.com/us/app/medulla-mentor/id6469579767
+[AppStore-url]: https://apps.apple.com/us/app/medulla-mentor/id6469579767
 [Flutter-url]: https://flutter.dev
 [Flutter.js]: https://img.shields.io/badge/flutter-000000?style=for-the-badge&logo=flutter&logoColor=white
 [Python-url]: https://www.python.org
