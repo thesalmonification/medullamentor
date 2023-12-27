@@ -200,20 +200,20 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                     //width: double.infinity,
                     alignment: Alignment.center,
                   ),
-                  InkWell(
-                    // onTapDown: (details) => onTapDown(context, details),
-                    child: Image.asset(
-                      _isvisible == true
-                          ?
-                          // 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                          'redlabelsplit/' + split_image
-                          : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      fit: BoxFit.fitWidth,
-                      //height: double.infinity,
-                      //width: double.infinity,
-                      alignment: Alignment.center,
-                    ),
-                  ),
+                  // InkWell(
+                  //   // onTapDown: (details) => onTapDown(context, details),
+                  //   child: Image.asset(
+                  //     _isvisible == true
+                  //         ?
+                  //         // 'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                  //         'redlabelsplit/' + split_image
+                  //         : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                  //     fit: BoxFit.fitWidth,
+                  //     //height: double.infinity,
+                  //     //width: double.infinity,
+                  //     alignment: Alignment.center,
+                  //   ),
+                  // ),
                   Stack(
                     children: <Widget>[
                       // Align(
@@ -395,21 +395,21 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             }),
                       ),
 
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: learn
-                            ? FloatingActionButton(
-                                heroTag: 'btn3',
-                                onPressed: () {
-                                  setState(() {
-                                    _isvisible = !_isvisible;
-                                  });
-                                },
-                                child: (_isvisible)
-                                    ? Icon(Icons.label_off)
-                                    : Icon(Icons.label))
-                            : Container(),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.bottomRight,
+                      //   child: learn
+                      //       ? FloatingActionButton(
+                      //           heroTag: 'btn3',
+                      //           onPressed: () {
+                      //             setState(() {
+                      //               _isvisible = !_isvisible;
+                      //             });
+                      //           },
+                      //           child: (_isvisible)
+                      //               ? Icon(Icons.label_off)
+                      //               : Icon(Icons.label))
+                      //       : Container(),
+                      // ),
                     ],
                   ),
                   Align(
