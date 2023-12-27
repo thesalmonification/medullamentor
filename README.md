@@ -22,7 +22,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -141,7 +140,7 @@ Medulla Mentor can be accessed on the Web and as an iPad App.
 
 The Web App can be found [Here](https://medullamentor.web.app)
 
-The iPad App can be found [Here](https://apps.apple.com/us/app/medulla-mentor/id6469579767)
+The iPad App can be found here: [![AppStore][AppStore.js]][AppStore-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -206,9 +205,14 @@ Project Link: [https://github.com/thesalmonification/brainstem](https://github.c
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+We are students of the Texas A&M Engineering Medicine program in Houston, Texas.
+
+* Sydney Zhou
+* Deeksha Sarda
+* Kunal Jain
+* Gayatri Prakash
+* Emily Minner
+* Leslie Day, PhD
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -216,6 +220,8 @@ Project Link: [https://github.com/thesalmonification/brainstem](https://github.c
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[AppStore-url]: https://img.shields.io/badge/appstore-000000?style=for-the-badge&logo=appstore&logoColor=white](https://apps.apple.com/us/app/medulla-mentor/id6469579767
+[AppStore.js]: https://img.shields.io/badge/appstore-000000?style=for-the-badge&logo=appstore&logoColor=white
 [Flutter-url]: https://flutter.dev
 [Flutter.js]: https://img.shields.io/badge/flutter-000000?style=for-the-badge&logo=flutter&logoColor=white
 [Python-url]: https://www.python.org
