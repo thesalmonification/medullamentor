@@ -526,7 +526,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   ];*/
 
   void updateAxialImage(double dy) {
-    print('changed axial image');
+    //print('changed axial image');
     setState(() {
       //Random.nextInt(n) returns random integer from 0 to n-1
       if (dy > 0) {

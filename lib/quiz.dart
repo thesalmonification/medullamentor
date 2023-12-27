@@ -119,8 +119,8 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         chosen += 1;
       }
     }
-    print(chosenFiles);
-    print(chosenStructs);
+    //print(chosenFiles);
+    //print(chosenStructs);
     // print('changed axial image');
     correctAnswerIndex = Random().nextInt(4);
     structure = chosenStructs[correctAnswerIndex];
@@ -130,7 +130,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         int.parse(chosenFiles[correctAnswerIndex].substring(9, 11));
 
     setState(() {
-      print(imageAxialNumber);
+      //print(imageAxialNumber);
 
       split_image = red_split_json_data[imageAxialNumber][lookupstructure];
       structure = chosenStructs[correctAnswerIndex];
@@ -181,7 +181,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         ),
         body: SizedBox.expand(
           child: Container(
-              color: Colors.black,
+              color: Color(0xFF1b1b1b), //Colors.black,
               child: InteractiveViewer(
                   child: Stack(
                 alignment: Alignment.center,
@@ -426,7 +426,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   }
 
   Color getBackColor(bool pressed, bool correct) {
-    Color ret = Colors.black;
+    Color ret = Color(0xFF1b1b1b); //Colors.black;
     if (!learn && pressed) {
       ret = Color(0xff5E81AC);
     } else if (learn && correct) {
