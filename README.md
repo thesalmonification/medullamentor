@@ -92,7 +92,7 @@ Brainstem anatomy is an integral part of medical education, where it aids in und
 
 ### Built With
 
-* [![Python][Python.js]][Next-url]
+* [![Python][Python.js]][Python-url]
 * [![Flutter][Flutter.js]][Flutter-url]
 
 
@@ -205,14 +205,8 @@ Project Link: [https://github.com/thesalmonification/brainstem](https://github.c
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-We are students of the Texas A&M Engineering Medicine program in Houston, Texas.
+TODO
 
-* Sydney Zhou
-* Deeksha Sarda
-* Kunal Jain
-* Gayatri Prakash
-* Emily Minner
-* Leslie Day, PhD
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -221,7 +215,7 @@ We are students of the Texas A&M Engineering Medicine program in Houston, Texas.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [AppStore-url]: https://img.shields.io/badge/appstore-000000?style=for-the-badge&logo=appstore&logoColor=white](https://apps.apple.com/us/app/medulla-mentor/id6469579767
-[AppStore.js]: https://img.shields.io/badge/appstore-000000?style=for-the-badge&logo=appstore&logoColor=white
+[AppStore.js]: https://apps.apple.com/us/app/medulla-mentor/id6469579767
 [Flutter-url]: https://flutter.dev
 [Flutter.js]: https://img.shields.io/badge/flutter-000000?style=for-the-badge&logo=flutter&logoColor=white
 [Python-url]: https://www.python.org
