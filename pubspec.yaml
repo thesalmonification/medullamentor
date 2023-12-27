@@ -93,6 +93,7 @@ flutter:
   - redlabelsplit/
   - greenlabelsplit/
   - yellowlabelsplit/
+  - redLabelSplitMerged.json
   - chatjson/
   - logo/
 

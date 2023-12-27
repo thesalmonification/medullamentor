@@ -1,3 +1,4 @@
+import 'package:brainstem/quiz.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+
 
 List<Map> chat_json_data = [];
 
@@ -16,6 +18,10 @@ List<Map> yellow_json_data = [];
 List<Map> red_split_json_data = [];
 List<Map> green_split_json_data = [];
 List<Map> yellow_split_json_data = [];
+
+// Lists of the individual files and structures with the same index for the red data
+List<String> files = [];
+List<dynamic> structures = [];
 
 // Fetch content from the json file
 Future<void> readJson() async {
@@ -70,6 +76,24 @@ Future<void> readJsonSplits() async {
   //print(red_json_data[0]["648"]["23"]);
 }
 
+void readCorrectedJson() async {
+  Map<String, dynamic> jsonData = await loadJsonData();
+
+  // Extract keys and mappings
+  jsonData.forEach((key, value) {
+    files.add(key);
+    structures.add(value);
+  });
+
+  // print("Keys: $files");
+  // print("Mappings: $structures");
+}
+
+Future<Map<String, dynamic>> loadJsonData() async {
+  String jsonData = await rootBundle.loadString('redLabelSplitMerged.json');
+  return json.decode(jsonData);
+}
+
 _launchURL() async {
   final Uri url = Uri.parse('https://pubmed.ncbi.nlm.nih.gov/33951517/');
   if (!await launchUrl(url)) {
@@ -81,9 +105,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   readJson();
   readJsonSplits();
+  readCorrectedJson();
   readJsonChat();
-
-  
 
   runApp(const MyApp());
 }
@@ -91,19 +114,19 @@ void main() {
 const MaterialColor primaryBlack = MaterialColor(
   _blackPrimaryValue,
   <int, Color>{
-    50: Color(0xFF000000),
-    100: Color(0xFF000000),
-    200: Color(0xFF000000),
-    300: Color(0xFF000000),
-    400: Color(0xFF000000),
+    50: Color(0xFF1b1b1b), //used to be FF000000
+    100: Color(0xFF1b1b1b),
+    200: Color(0xFF1b1b1b),
+    300: Color(0xFF1b1b1b),
+    400: Color(0xFF1b1b1b),
     500: Color(_blackPrimaryValue),
-    600: Color(0xFF000000),
-    700: Color(0xFF000000),
-    800: Color(0xFF000000),
-    900: Color(0xFF000000),
+    600: Color(0xFF1b1b1b),
+    700: Color(0xFF1b1b1b),
+    800: Color(0xFF1b1b1b),
+    900: Color(0xFF1b1b1b),
   },
 );
-const int _blackPrimaryValue = 0xFF000000;
+const int _blackPrimaryValue = 0xFF1b1b1b;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -225,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       body: SafeArea(
           child: SizedBox.expand(
               child: Container(
-                  color: Colors.black,
+                  color: Color(0xFF1b1b1b), //Colors.black,
                   child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -256,7 +279,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         SizedBox(height: 50),
                         TextButton(
                             child: Text(
-                                "Coronal Brainstem (Under Repair)".toUpperCase(),
+                                "Coronal Brainstem (Under Repair)"
+                                    .toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
@@ -269,8 +293,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
+                                        side: BorderSide(color: Color(0xff5E81AC))))),
                             onPressed: () {
                               //Navigator.push(
                               //  context,
@@ -305,7 +328,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             }),
                         SizedBox(height: 50),
                         TextButton(
-                            child: Text("Quiz Mode (Coming Soon)".toUpperCase(),
+                            child: Text("Quiz Mode".toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
@@ -320,7 +343,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             BorderRadius.circular(18.0),
                                         side: BorderSide(
                                             color: Color(0xff5E81AC))))),
-                            onPressed: () => null),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BrainstemQuiz()),
+                              );
+                            }),
                         SizedBox(height: 50),
                       ]))))),
       drawer: Drawer(
@@ -333,7 +362,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Color(0xFF1b1b1b), //Colors.black,
               ),
               child: Center(
                   child: Text(
@@ -364,10 +393,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ListTile(
               title: const Text('Coronal Brainstem (Under Repair)'),
               onTap: () {
-               // Navigator.push(
-               //   context,
-               //   MaterialPageRoute(builder: (context) => CoronalBrainstem()),
-               // );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => CoronalBrainstem()),
+                // );
               },
             ),
             Divider(),
@@ -378,6 +407,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 //  context,
                 //  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
                 //);
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text('Quiz Mode'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BrainstemQuiz()),
+                );
               },
             ),
             Divider(),
@@ -397,8 +436,6 @@ class AxialBrainstem extends StatefulWidget {
   State<AxialBrainstem> createState() => _AxialBrainstemState();
 }
 
-
-
 class _AxialBrainstemState extends State<AxialBrainstem> {
   List<String> incorrect_structures = [];
 
@@ -413,29 +450,24 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   double y = 0.0;
   int imageAxialNumber = 15;
 
+
   String location = "pons"; //I'm adding in a location string to show 
 
   String tooltipmsg = ""; //This string will hold the tool tip description for 
   bool tooltipvisibility = false; //I want to hide the
-
 
   NumberFormat formatter = NumberFormat("00000");
 
   ///////////////////////////////////////////////////////
 
   void onTapDown(BuildContext context, TapDownDetails details) {
-
     setState(() {
-
-
       x = details.localPosition.dx;
       y = details.localPosition.dy;
-
 
       if (red_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-
         lookupstructure = "Unknown Tissue";
         structure =
             ""; //Don't bother showing any text if it's not an important structure.
@@ -444,7 +476,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         tooltipvisibility = false; 
 
       } else {
-
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
         //    [y.toInt().toString()];
 
@@ -486,15 +517,12 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
       ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
 
-    //print([x, y]);
-    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
-    //    [y.toInt().toString()]);
+      //print([x, y]);
+      //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+      //    [y.toInt().toString()]);
     });
   }
   ////////////////////////////////////////////////////////
-
-
-
 
   //I'm adding a list of strings to account for the inccorectly labeled structures...
   /*List<String> incorrect_structures = [
@@ -535,10 +563,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     'cuneate fasciculus'
   ];*/
 
-
-
-  
-
   void updateAxialImage(double dy) {
     //print('changed axial image');
     setState(() {
@@ -574,10 +598,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     });
   }
 
-  
-
-  
-
   @override
   void initState() {
     super.initState();
@@ -605,8 +625,6 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
         }));
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -622,12 +640,12 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
           title: Text('Axial Brainstem'),
         ),
         body: SizedBox.expand(
-            child: Container(
-          color: Colors.black,
-          child: InteractiveViewer(child: Stack(
-            alignment: Alignment.center,
-            children: [
-
+          child: Container(
+              color: Color(0xFF1b1b1b), //Colors.black,
+              child: InteractiveViewer(
+                  child: Stack(
+                alignment: Alignment.center,
+                children: [
                   Image.asset(
                     'red/image_${formatter.format(imageAxialNumber)}.png',
                     fit: BoxFit.fitWidth, //cover
@@ -635,58 +653,67 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                     //width: double.infinity,
                     alignment: Alignment.center,
                   ),
-
-              InkWell(
-                onTapDown: (details) => onTapDown(context, details),
-                child: 
-                    Image.asset(
-                  _isvisible == true
-                      ?
-                      //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                      'redlabelsplit/' + split_image
-                      : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                  fit: BoxFit.fitWidth,
-                  //height: double.infinity,
-                  //width: double.infinity,
-                  alignment: Alignment.center,
-                ),
-              ),
-
-
-              Stack(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: FloatingActionButton(
-                        heroTag: "btn1",
-                        onPressed: () {
-                          updateAxialImage(-1);
-                        },
-                        child: const Icon(Icons.navigate_before)),
+                  InkWell(
+                    onTapDown: (details) => onTapDown(context, details),
+                    child: Image.asset(
+                      _isvisible == true
+                          ?
+                          //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                          'redlabelsplit/' + split_image
+                          : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: FloatingActionButton(
+                            heroTag: "btn1",
+                            onPressed: () {
+                              updateAxialImage(-1);
+                            },
+                            child: const Icon(Icons.navigate_before)),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: FloatingActionButton(
+                            heroTag: 'btn2',
+                            onPressed: () {
+                              updateAxialImage(1);
+                            },
+                            child: const Icon(Icons.navigate_next)),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: FloatingActionButton(
+                            heroTag: 'btn3',
+                            onPressed: () {
+                              setState(() {
+                                _isvisible = !_isvisible;
+                              });
+                            },
+                            child: (_isvisible)
+                                ? Icon(Icons.label_off)
+                                : Icon(Icons.label)),
+                      ),
+                    ],
                   ),
                   Align(
-                    alignment: Alignment.centerRight,
-                    child: FloatingActionButton(
-                        heroTag: 'btn2',
-                        onPressed: () {
-                          updateAxialImage(1);
-                        },
-                        child: const Icon(Icons.navigate_next)),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: FloatingActionButton(
-                        heroTag: 'btn3',
-                        onPressed: () {
-                          setState(() {
-                            _isvisible = !_isvisible;
-                          });
-                        },
-                        child: (_isvisible)
-                            ? Icon(Icons.label_off)
-                            : Icon(Icons.label)),
-                  ),
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                          padding: EdgeInsets.all(50),
+                          child: Text(
+                            structure,
+                            style: TextStyle(color: Colors.white, fontSize: 30),
+                          )))
                 ],
+
+              ))),
+
               ),
               Align(
                   alignment: Alignment.topCenter,
@@ -706,6 +733,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                       )))
             ],
           ))),
+
 
 
         ));
@@ -773,29 +801,23 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
   ///////////////////////////////////////////////////////
 
   void onTapDown(BuildContext context, TapDownDetails details) {
-
     setState(() {
-
-
       x = details.localPosition.dx;
       y = details.localPosition.dy;
-
 
       if (green_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-
         lookupstructure = "Unknown Tissue";
         structure =
             ""; //Don't bother showing any text if it's not an important structure.
       } else {
-
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
         //    [y.toInt().toString()];
 
         //Here I get the structure in the raw form for a lookup
-        lookupstructure = green_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()];
+        lookupstructure = green_json_data[imageAxialNumber]
+            [x.toInt().toString()][y.toInt().toString()];
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = green_json_data[imageAxialNumber][x.toInt().toString()]
@@ -817,9 +839,9 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
 
       ////////////WTF IS GOING ON IN LIFE FUCK MY LIFE SO MUCH
 
-    //print([x, y]);
-    //print(red_json_data[imageAxialNumber][x.toInt().toString()]
-    //    [y.toInt().toString()]);
+      //print([x, y]);
+      //print(red_json_data[imageAxialNumber][x.toInt().toString()]
+      //    [y.toInt().toString()]);
     });
   }
   ////////////////////////////////////////////////////////
@@ -839,8 +861,6 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
       }
     });
   }
-
-  
 
   @override
   void initState() {
@@ -885,21 +905,21 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
         ),
         body: SizedBox.expand(
             child: Container(
-          color: Colors.black,
-          child: InteractiveViewer(child: Stack(
+          color: Color(0xFF1b1b1b), //Colors.black,
+          child: InteractiveViewer(
+              child: Stack(
             alignment: Alignment.center,
             children: [
               Image.asset(
-                    'green/image_${formatter.format(imageAxialNumber)}.png',
-                    fit: BoxFit.fitWidth, //cover
-                    //height: double.infinity,
-                    //width: double.infinity,
-                    alignment: Alignment.center,
-                  ),
+                'green/image_${formatter.format(imageAxialNumber)}.png',
+                fit: BoxFit.fitWidth, //cover
+                //height: double.infinity,
+                //width: double.infinity,
+                alignment: Alignment.center,
+              ),
               InkWell(
                 onTapDown: (details) => onTapDown(context, details),
-                child: 
-                    Image.asset(
+                child: Image.asset(
                   _isvisible == true
                       ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
@@ -958,7 +978,6 @@ class _CoronalBrainstemState extends State<CoronalBrainstem> {
                       )))
             ],
           )),
-
         )));
   }
 }
@@ -1013,33 +1032,26 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
     'cuneate fasciculus'
   ];*/
 
-
   ///////////////////////////////////////////////////////
 
   void onTapDown(BuildContext context, TapDownDetails details) {
-
     setState(() {
-
-
       x = details.localPosition.dx;
       y = details.localPosition.dy;
-
 
       if (yellow_json_data[imageAxialNumber][x.toInt().toString()]
               [y.toInt().toString()] ==
           "Material93") {
-
         lookupstructure = "Unknown Tissue";
         structure =
             ""; //Don't bother showing any text if it's not an important structure.
       } else {
-
         //structure = red_json_data[imageAxialNumber][x.toInt().toString()]
         //    [y.toInt().toString()];
 
         //Here I get the structure in the raw form for a lookup
-        lookupstructure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
-            [y.toInt().toString()];
+        lookupstructure = yellow_json_data[imageAxialNumber]
+            [x.toInt().toString()][y.toInt().toString()];
 
         //This is the text shown on screen. I remove any "left" or "right" from the string.
         structure = yellow_json_data[imageAxialNumber][x.toInt().toString()]
@@ -1057,7 +1069,6 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
 
       //Attempting to add in the split json reference here.
       split_image = yellow_split_json_data[imageAxialNumber][lookupstructure];
-
     });
   }
   ////////////////////////////////////////////////////////
@@ -1076,12 +1087,14 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
       //Random.nextInt(n) returns random integer from 0 to n-1
       if (dy > 0) {
         imageAxialNumber = (imageAxialNumber + 1) % 30;
-        split_image = yellow_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        split_image =
+            yellow_split_json_data[imageAxialNumber]["Unknown Tissue"];
         structure = "";
       }
       if (dy < 0) {
         imageAxialNumber = (imageAxialNumber - 1) % 30;
-        split_image = yellow_split_json_data[imageAxialNumber]["Unknown Tissue"];
+        split_image =
+            yellow_split_json_data[imageAxialNumber]["Unknown Tissue"];
         structure = "";
       }
     });
@@ -1169,21 +1182,21 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
         ),
         body: SizedBox.expand(
             child: Container(
-          color: Colors.black,
-          child: InteractiveViewer(child: Stack(
+          color: Color(0xFF1b1b1b), //Colors.black,
+          child: InteractiveViewer(
+              child: Stack(
             alignment: Alignment.center,
             children: [
               Image.asset(
-                    'yellow/image_${formatter.format(imageAxialNumber)}.png',
-                    fit: BoxFit.fitWidth, //cover
-                    //height: double.infinity,
-                    //width: double.infinity,
-                    alignment: Alignment.center,
-                  ),
+                'yellow/image_${formatter.format(imageAxialNumber)}.png',
+                fit: BoxFit.fitWidth, //cover
+                //height: double.infinity,
+                //width: double.infinity,
+                alignment: Alignment.center,
+              ),
               InkWell(
                 onTapDown: (details) => onTapDown(context, details),
-                child: 
-                    Image.asset(
+                child: Image.asset(
                   _isvisible == true
                       ?
                       //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
@@ -1242,7 +1255,6 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
                       )))
             ],
           )),
-
         )));
   }
 }
