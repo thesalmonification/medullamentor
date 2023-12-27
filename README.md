@@ -177,7 +177,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Data of the Human Brainstem is **courtesy of the Duke Center In Vivo Microscopy**. the data is under the CC By-NC-SA 3.0 license, meaning any derived works are used for **non-commercial** and **educational** purposes only. Any use of the data must cite the original creators:
+Data of the Human Brainstem is **courtesy of the Duke Center In Vivo Microscopy**. The data is under the CC By-NC-SA 3.0 license, meaning any derived works are used for **non-commercial** and **educational** purposes only. Any use of the data must cite the original creators:
 
 ```
 Adil et al 2021
