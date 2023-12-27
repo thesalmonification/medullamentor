@@ -10,7 +10,6 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'main.dart';
 
-
 class BrainstemQuiz extends StatefulWidget {
   BrainstemQuiz({super.key});
   //So will try async function here...
@@ -18,7 +17,6 @@ class BrainstemQuiz extends StatefulWidget {
   @override
   State<BrainstemQuiz> createState() => _BrainstemQuizState();
 }
-
 
 class _BrainstemQuizState extends State<BrainstemQuiz> {
   // List<String> incorrect_structures = [];
@@ -95,10 +93,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   // }
   ////////////////////////////////////////////////////////
 
-
-
   void generateQuestion() {
-
     // generate 4 choices
     int chosen = 0;
     int total = files.length;
@@ -109,13 +104,16 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
     while (chosen < 4) {
       int index = Random().nextInt(total);
       String currentFile = files[index];
-      String currentStruct = structures[index].toString()
-            .replaceAll(' left', '')
-            .replaceAll(' right', '')
-            .trim()
-            .toString();
+      String currentStruct = structures[index]
+          .toString()
+          .replaceAll(' left', '')
+          .replaceAll(' right', '')
+          .trim()
+          .toString();
       // print(chosen);
-      if (!chosenFiles.contains(currentFile) && !chosenStructs.contains(currentStruct) && !currentStruct.contains("Unknown")) {
+      if (!chosenFiles.contains(currentFile) &&
+          !chosenStructs.contains(currentStruct) &&
+          !currentStruct.contains("Unknown")) {
         chosenFiles.add(currentFile);
         chosenStructs.add(currentStruct);
         chosen += 1;
@@ -126,8 +124,10 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
     // print('changed axial image');
     correctAnswerIndex = Random().nextInt(4);
     structure = chosenStructs[correctAnswerIndex];
-    lookupstructure = structures[files.indexOf(chosenFiles[correctAnswerIndex])];
-    imageAxialNumber = int.parse(chosenFiles[correctAnswerIndex].substring(9,11));
+    lookupstructure =
+        structures[files.indexOf(chosenFiles[correctAnswerIndex])];
+    imageAxialNumber =
+        int.parse(chosenFiles[correctAnswerIndex].substring(9, 11));
 
     setState(() {
       print(imageAxialNumber);
@@ -145,11 +145,11 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('UNDER CONSTRUCTION'),
+            title: const Text('How to Use'),
             content: const Text(
-                '1. Click the arrow on the left/right sides to scroll through the brainstem.\n'
-                '2. Click the bottom right button to toggle color labels.\n'
-                '3. Hover your mouse over the brainstem to see anatomic labels.\n'),
+                '1. Choose your desired answer from the four choices.\n'
+                '2. Click "submit".\n'
+                '3. The correct answer will be highlighted in green. Incorrect answers are in red.\n'),
             actions: <Widget>[
               TextButton(
                 style: TextButton.styleFrom(
@@ -164,7 +164,6 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
           );
         }));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -234,119 +233,123 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text(chosenStructs[0].toUpperCase(),
-                                style: TextStyle(fontSize: 14)),
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerAPressed, correctAnswerIndex == 0)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerAPressed, correctAnswerIndex == 0)),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
-                            onPressed: () {
-                              if (!learn) {
-                                setState(() {
-                                  answerAPressed = true;
-                                  answerBPressed = false;
-                                  answerCPressed = false;
-                                  answerDPressed = false;
-                                });
-                              }
+                                    child: Text(chosenStructs[0].toUpperCase(),
+                                        style: TextStyle(fontSize: 14)),
+                                    style: ButtonStyle(
+                                        padding:
+                                            MaterialStateProperty.all<EdgeInsets>(
+                                                EdgeInsets.all(15)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getBackColor(answerAPressed,
+                                                    correctAnswerIndex == 0)),
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getForeColor(answerAPressed,
+                                                    correctAnswerIndex == 0)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                    onPressed: () {
+                                      if (!learn) {
+                                        setState(() {
+                                          answerAPressed = true;
+                                          answerBPressed = false;
+                                          answerCPressed = false;
+                                          answerDPressed = false;
+                                        });
+                                      }
 
-                              // updateAxialImage();
-                            })),
+                                      // updateAxialImage();
+                                    })),
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text(chosenStructs[1].toUpperCase(),
-                                style: TextStyle(fontSize: 14)),
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerBPressed, correctAnswerIndex == 1)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerBPressed, correctAnswerIndex == 1)),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
-                            onPressed: () {
-                              if (!learn) {
-                                setState(() {
-                                  answerAPressed = false;
-                                  answerBPressed = true;
-                                  answerCPressed = false;
-                                  answerDPressed = false;
-                                });
-                              }
+                                    child: Text(chosenStructs[1].toUpperCase(),
+                                        style: TextStyle(fontSize: 14)),
+                                    style: ButtonStyle(
+                                        padding:
+                                            MaterialStateProperty.all<EdgeInsets>(
+                                                EdgeInsets.all(15)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getBackColor(answerBPressed,
+                                                    correctAnswerIndex == 1)),
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getForeColor(answerBPressed,
+                                                    correctAnswerIndex == 1)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                    onPressed: () {
+                                      if (!learn) {
+                                        setState(() {
+                                          answerAPressed = false;
+                                          answerBPressed = true;
+                                          answerCPressed = false;
+                                          answerDPressed = false;
+                                        });
+                                      }
 
-                              // updateAxialImage();
-                            })),
+                                      // updateAxialImage();
+                                    })),
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text(chosenStructs[2].toUpperCase(),
-                                style: TextStyle(fontSize: 14)),
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerCPressed, correctAnswerIndex == 2)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerCPressed, correctAnswerIndex == 2)),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
-                            onPressed: () {
-                              if (!learn) {
-                                setState(() {
-                                  answerAPressed = false;
-                                  answerBPressed = false;
-                                  answerCPressed = true;
-                                  answerDPressed = false;
-                                });
-                              }
+                                    child: Text(chosenStructs[2].toUpperCase(),
+                                        style: TextStyle(fontSize: 14)),
+                                    style: ButtonStyle(
+                                        padding:
+                                            MaterialStateProperty.all<EdgeInsets>(
+                                                EdgeInsets.all(15)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getBackColor(answerCPressed,
+                                                    correctAnswerIndex == 2)),
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getForeColor(answerCPressed,
+                                                    correctAnswerIndex == 2)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                    onPressed: () {
+                                      if (!learn) {
+                                        setState(() {
+                                          answerAPressed = false;
+                                          answerBPressed = false;
+                                          answerCPressed = true;
+                                          answerDPressed = false;
+                                        });
+                                      }
 
-                              // updateAxialImage();
-                            })),
+                                      // updateAxialImage();
+                                    })),
                             Spacer(),
                             Expanded(
                                 child: TextButton(
-                            child: Text(chosenStructs[3].toUpperCase(),
-                                style: TextStyle(fontSize: 14)),
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(15)),
-                                backgroundColor: MaterialStateProperty.all<Color>(getBackColor(answerDPressed, correctAnswerIndex == 3)),
-                                foregroundColor: MaterialStateProperty.all<Color>(getForeColor(answerDPressed, correctAnswerIndex == 3)),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
-                            onPressed: () {
-                              if (!learn) {
-                                setState(() {
-                                  answerAPressed = false;
-                                  answerBPressed = false;
-                                  answerCPressed = false;
-                                  answerDPressed = true;
-                                });
-                              }
+                                    child: Text(chosenStructs[3].toUpperCase(),
+                                        style: TextStyle(fontSize: 14)),
+                                    style: ButtonStyle(
+                                        padding:
+                                            MaterialStateProperty.all<EdgeInsets>(
+                                                EdgeInsets.all(15)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getBackColor(answerDPressed,
+                                                    correctAnswerIndex == 3)),
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                getForeColor(answerDPressed,
+                                                    correctAnswerIndex == 3)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Color(0xff5E81AC))))),
+                                    onPressed: () {
+                                      if (!learn) {
+                                        setState(() {
+                                          answerAPressed = false;
+                                          answerBPressed = false;
+                                          answerCPressed = false;
+                                          answerDPressed = true;
+                                        });
+                                      }
 
-                              // updateAxialImage();
-                            })),
+                                      // updateAxialImage();
+                                    })),
                             Spacer(),
                           ],
                         ),
@@ -355,7 +358,10 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                       Align(
                         alignment: Alignment(0.0, 0.9),
                         child: TextButton(
-                            child: Text(!learn ? "Submit".toUpperCase() : "Next".toUpperCase(),
+                            child: Text(
+                                !learn
+                                    ? "Submit".toUpperCase()
+                                    : "Next".toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
@@ -368,11 +374,13 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xff5E81AC))))),
+                                        side: BorderSide(color: Color(0xff5E81AC))))),
                             onPressed: () {
                               setState(() {
-                                if (answerAPressed || answerBPressed || answerCPressed || answerDPressed) {
+                                if (answerAPressed ||
+                                    answerBPressed ||
+                                    answerCPressed ||
+                                    answerDPressed) {
                                   if (learn) {
                                     generateQuestion();
                                     answerAPressed = false;
@@ -383,25 +391,24 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                                   learn = !learn;
                                 }
                                 // interpret answer
-
                               });
                             }),
                       ),
 
                       Align(
                         alignment: Alignment.bottomRight,
-                        child: learn ?
-                        FloatingActionButton(
-                            heroTag: 'btn3',
-                            onPressed: () {
-                              setState(() {
-                                _isvisible = !_isvisible;
-                              });
-                            },
-                            child: (_isvisible)
-                                ? Icon(Icons.label_off)
-                                : Icon(Icons.label)) :
-                                Container(),
+                        child: learn
+                            ? FloatingActionButton(
+                                heroTag: 'btn3',
+                                onPressed: () {
+                                  setState(() {
+                                    _isvisible = !_isvisible;
+                                  });
+                                },
+                                child: (_isvisible)
+                                    ? Icon(Icons.label_off)
+                                    : Icon(Icons.label))
+                            : Container(),
                       ),
                     ],
                   ),
@@ -409,7 +416,8 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                       alignment: Alignment.topCenter,
                       child: Padding(
                           padding: EdgeInsets.all(50),
-                          child: Text( learn ? structure : "",
+                          child: Text(
+                            learn ? structure : "",
                             style: TextStyle(color: Colors.white, fontSize: 30),
                           )))
                 ],
@@ -436,6 +444,4 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
       return Color(0xff5E81AC);
     }
   }
-
 }
-
