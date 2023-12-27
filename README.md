@@ -114,7 +114,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Medulla Mentor is built with Flutter for Cross Platform 
 * npm
   ```sh
   npm install npm@latest -g
@@ -142,9 +142,11 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Medulla Mentor can be accessed on the Web and as an iPad App.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+The Web App can be found [Here][https://medullamentor.web.app]
+
+The iPad App can be found [Here][https://apps.apple.com/us/app/medulla-mentor/id6469579767]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,10 +155,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+TODO
 
 See the [open issues](https://github.com/thesalmonification/brainstem/issues) for a full list of proposed features (and known issues).
 
@@ -185,7 +184,14 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Data of the Human Brainstem is courtesy of the Duke Center In Vivo Microscopy. the data is under the CC By-NC-SA 3.0 license, meaning any derived works are used for **non-commercial** and **educational** purposes only. Any use of the data must cite the original creators:
+
+```
+Adil et al 2021
+https://doi.org/10.1016/j.neuroimage.2021.118135
+```
+
+Distributed under the CC By-NC-SA 3.0 license License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
