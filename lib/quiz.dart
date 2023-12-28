@@ -1,13 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_cube/flutter_cube.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 import 'main.dart';
 
 class BrainstemQuiz extends StatefulWidget {
@@ -27,7 +23,7 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
   String split_image = red_split_json_data[15]['Unknown Tissue'];
   int lastindex = 0;
 
-  bool _isvisible = true;
+  //bool _isvisible = true;
   // double x = 0.0;
   // double y = 0.0;
   int imageAxialNumber = 0;
@@ -200,7 +196,14 @@ class _BrainstemQuizState extends State<BrainstemQuiz> {
                     //height: double.infinity,
                     //width: double.infinity,
                     alignment: Alignment.center,
-                  ),
+                  )
+                      .animate(
+                          onPlay: (_controller) =>
+                              _controller.repeat(reverse: true))
+                      .fadeIn(duration: 1.seconds)
+                      .then() // set baseline time to previous effect's end time
+
+                      .fadeOut(duration: 1.seconds),
                   // InkWell(
                   //   // onTapDown: (details) => onTapDown(context, details),
                   //   child: Image.asset(
