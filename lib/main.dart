@@ -2,8 +2,8 @@ import 'package:brainstem/quiz.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_cube/flutter_cube.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
@@ -172,11 +172,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  int _counter = 0;
+  //int _counter = 0;
 
-  late Scene _scene;
-  late AnimationController _controller;
-  Object? _skull;
+  //late Scene _scene;
+  //late AnimationController _controller;
+  //Object? _skull;
 
   @override
   void initState() {
@@ -226,17 +226,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    void _onSceneCreated(Scene scene) {
-      _scene = scene;
-      _scene.camera.zoom = 50;
-      _scene.camera.position.z = 20;
+    //void _onSceneCreated(Scene scene) {
+    //  _scene = scene;
+    //  _scene.camera.zoom = 50;
+    //  _scene.camera.position.z = 20;
 
-      _scene.camera.position.y = -50;
+    //  _scene.camera.position.y = -50;
 
-      _skull = Object(fileName: 'Segmentations/skull.obj');
-      //_skull = Object(fileName: 'CTChestSegmentation/skull.obj');
-      _scene.world.add(_skull!);
-    }
+    //  _skull = Object(fileName: 'Segmentations/skull.obj');
+    //_skull = Object(fileName: 'CTChestSegmentation/skull.obj');
+    //  _scene.world.add(_skull!);
+    //}
 
     return Scaffold(
       appBar: AppBar(
@@ -488,6 +488,8 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
 
   NumberFormat formatter = NumberFormat("00000");
 
+  late AnimationController _controller;
+
   ///////////////////////////////////////////////////////
 
   void onTapDown(BuildContext context, TapDownDetails details) {
@@ -678,19 +680,25 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                   alignment: Alignment.center,
                 ),
                 InkWell(
-                  onTapDown: (details) => onTapDown(context, details),
-                  child: Image.asset(
-                    _isvisible == true
-                        ?
-                        //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                        'redlabelsplit/' + split_image
-                        : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
-                    fit: BoxFit.fitWidth,
-                    //height: double.infinity,
-                    //width: double.infinity,
-                    alignment: Alignment.center,
-                  ),
-                ),
+                    onTapDown: (details) => onTapDown(context, details),
+                    child: Image.asset(
+                      _isvisible == true
+                          ?
+                          //'assets/redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                          'redlabelsplit/' + split_image
+                          : 'redlabels/image_${formatter.format(imageAxialNumber)}.png',
+                      fit: BoxFit.fitWidth,
+                      //height: double.infinity,
+                      //width: double.infinity,
+                      alignment: Alignment.center,
+                    )
+                        .animate(
+                            onPlay: (_controller) =>
+                                _controller.repeat(reverse: true))
+                        .fadeIn(duration: _isvisible ? 1.seconds : 5.seconds)
+                        .then() // set baseline time to previous effect's end time
+
+                        .fadeOut(duration: _isvisible ? 1.seconds : 5.seconds)),
                 Stack(
                   children: <Widget>[
                     Align(
