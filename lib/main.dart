@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
@@ -447,6 +448,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => BrainstemQuiz()),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: const Text('Get Medulla Mentor'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QrPage()),
                 );
               },
             ),
@@ -1289,5 +1300,69 @@ class _SaggitalBrainstemState extends State<SaggitalBrainstem> {
             ],
           )),
         )));
+  }
+}
+
+class QrPage extends StatefulWidget {
+  QrPage({super.key});
+  //So will try async function here...
+
+  @override
+  State<QrPage> createState() => _QrPageState();
+}
+
+class _QrPageState extends State<QrPage> {
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          backgroundColor: Color(0xFF1b1b1b),
+          title: Text('Get Medulla Mentor'),
+        ),
+        body: Stack(alignment: Alignment.center, children: [
+          Row(
+            children: [
+              Column(children: [
+                QrImageView(
+                  data: 'https://medullamentor.web.app',
+                  version: QrVersions.auto,
+                  size: 320,
+                  gapless: false,
+                  backgroundColor: Colors.white,
+                ),
+                Text(
+                  "Web Browser",
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                )
+              ]),
+              SizedBox(
+                width: 50,
+              ),
+              Column(children: [
+                QrImageView(
+                  data:
+                      'https://apps.apple.com/us/app/medulla-mentor/id6469579767',
+                  version: QrVersions.auto,
+                  size: 320,
+                  gapless: false,
+                  backgroundColor: Colors.white,
+                ),
+                Text(
+                  "iPad",
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                )
+              ]),
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+          )
+        ]));
   }
 }
