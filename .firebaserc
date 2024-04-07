@@ -1,5 +1,15 @@
 {
   "projects": {
-    "default": "bstematlas"
-  }
+    "default": "medullamentor"
+  },
+  "targets": {
+    "medullamentor": {
+      "hosting": {
+        "medullamentor": [
+          "the-medulla"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

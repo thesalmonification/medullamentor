@@ -479,9 +479,9 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
   bool _isvisible = true;
   double x = 0.0;
   double y = 0.0;
-  int imageAxialNumber = 15;
+  int imageAxialNumber = 6;
 
-  String location = "pons"; //I'm adding in a location string to show
+  String location = "medulla"; //I'm adding in a location string to show
 
   String tooltipmsg = ""; //This string will hold the tool tip description for
   bool tooltipvisibility = false; //I want to hide the
@@ -595,13 +595,13 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
     setState(() {
       //Random.nextInt(n) returns random integer from 0 to n-1
       if (dy > 0) {
-        imageAxialNumber = (imageAxialNumber + 1) % 30;
+        imageAxialNumber = (imageAxialNumber + 1) % 8;
         split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
         structure = "";
         tooltipvisibility = false;
       }
       if (dy < 0) {
-        imageAxialNumber = (imageAxialNumber - 1) % 30;
+        imageAxialNumber = (imageAxialNumber - 1) % 8;
         split_image = red_split_json_data[imageAxialNumber]["Unknown Tissue"];
         structure = "";
         tooltipvisibility = false;
