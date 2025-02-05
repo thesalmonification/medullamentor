@@ -48,7 +48,7 @@ images.sort()
 
 
 
-for image in [images[12]]: #I add list around this loop if I'm trying to correct a single file...
+for image in [images[0]]: #I add list around this loop if I'm trying to correct a single file...
     image_name = image[-15:-4]
     print('\nWE ARE NOW WORKING ON IMAGE: ' + image_name)
 
