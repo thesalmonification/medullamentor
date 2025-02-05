@@ -308,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         SizedBox(height: 50),
                         TextButton(
                             child: Text(
-                                "Coronal Brainstem (Under Repair)"
+                                "Coronal Brainstem"
                                     .toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
@@ -325,11 +325,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         side:
                                             BorderSide(color: Colors.purple)))),
                             onPressed: () {
-                              //Navigator.push(
-                              //  context,
-                              //  MaterialPageRoute(
-                              //      builder: (context) => CoronalBrainstem()),
-                              //);
+                              Navigator.push(
+                               context,
+                                MaterialPageRoute(
+                                    builder: (context) => CoronalBrainstem()),
+                              );
                             }),
                         SizedBox(height: 50),
                         TextButton(
