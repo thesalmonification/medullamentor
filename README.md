@@ -203,8 +203,13 @@ Project Link: [https://github.com/thesalmonification/medullamentor](https://gith
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
+Thank you to the following for helping develop MedullaMentor:
 
-TODO
+Kunal Jain
+Gayatri Prakash
+Emily Minner
+Sydney Zhou
+Deeksha Sarda
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
