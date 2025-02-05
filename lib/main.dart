@@ -692,13 +692,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     )
-                        .animate(
-                            onPlay: (_controller) =>
-                                _controller.repeat(reverse: true))
-                        .fadeIn(duration: _isvisible ? 1.seconds : 5.seconds)
-                        .then() // set baseline time to previous effect's end time
-
-                        .fadeOut(duration: _isvisible ? 1.seconds : 5.seconds)),
+                        ),
                 Stack(
                   children: <Widget>[
                     Align(
