@@ -40,7 +40,7 @@ broken_structures = ['optic chiasm',
 'cuneate fasciculus right',
 'cuneate fasciculus left']
 
-color = 'red'
+color = 'green'
 
 #Read all images in the directory
 images = glob.glob(color+'/*.png')
@@ -48,7 +48,7 @@ images.sort()
 
 
 
-for image in [images[30]]: #I add list around this loop if I'm trying to correct a single file...
+for image in images: #I add list around this loop if I'm trying to correct a single file...
     image_name = image[-15:-4]
     print('\nWE ARE NOW WORKING ON IMAGE: ' + image_name)
 
@@ -75,7 +75,7 @@ for image in [images[30]]: #I add list around this loop if I'm trying to correct
         image2 = cv2.imread(split_label_image)
         split_label = cv2.addWeighted(mri,0.4,image2,1,0)
 
-        current_label = str(df[df[0] == split_label_image[14:]].index[0])
+        current_label = str(df[df[0] == split_label_image[16:]].index[0])
 
         if current_label not in broken_structures: #I'm doing this to reduce the number of split images I see. Hopefully speeds up to only incorrectly labeled structures. 
             continue
