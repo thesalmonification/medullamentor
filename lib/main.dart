@@ -308,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         SizedBox(height: 50),
                         TextButton(
                             child: Text(
-                                "Coronal Brainstem (Under Repair)"
+                                "Coronal Brainstem"
                                     .toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
@@ -325,16 +325,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         side:
                                             BorderSide(color: Colors.purple)))),
                             onPressed: () {
-                              //Navigator.push(
-                              //  context,
-                              //  MaterialPageRoute(
-                              //      builder: (context) => CoronalBrainstem()),
-                              //);
+                              Navigator.push(
+                               context,
+                                MaterialPageRoute(
+                                    builder: (context) => CoronalBrainstem()),
+                              );
                             }),
                         SizedBox(height: 50),
                         TextButton(
                             child: Text(
-                                "Saggital Brainstem (Under Repair)"
+                                "Saggital Brainstem"
                                     .toUpperCase(),
                                 style: TextStyle(fontSize: 14)),
                             style: ButtonStyle(
@@ -351,11 +351,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         side:
                                             BorderSide(color: Colors.purple)))),
                             onPressed: () {
-                              //Navigator.push(
-                              //  context,
-                              //  MaterialPageRoute(
-                              //      builder: (context) => SaggitalBrainstem()),
-                              //);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SaggitalBrainstem()),
+                              );
                             }),
                         SizedBox(height: 50),
                         TextButton(
@@ -422,22 +422,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
             Divider(),
             ListTile(
-              title: const Text('Coronal Brainstem (Under Repair)'),
+              title: const Text('Coronal Brainstem'),
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => CoronalBrainstem()),
-                // );
+                Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) => CoronalBrainstem()),
+                 );
               },
             ),
             Divider(),
             ListTile(
-              title: const Text('Saggital Brainstem (Under Repair)'),
+              title: const Text('Saggital Brainstem'),
               onTap: () {
-                //Navigator.push(
-                //  context,
-                //  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
-                //);
+                Navigator.push(
+                 context,
+                  MaterialPageRoute(builder: (context) => SaggitalBrainstem()),
+                );
               },
             ),
             Divider(),
@@ -692,13 +692,7 @@ class _AxialBrainstemState extends State<AxialBrainstem> {
                       //width: double.infinity,
                       alignment: Alignment.center,
                     )
-                        .animate(
-                            onPlay: (_controller) =>
-                                _controller.repeat(reverse: true))
-                        .fadeIn(duration: _isvisible ? 1.seconds : 5.seconds)
-                        .then() // set baseline time to previous effect's end time
-
-                        .fadeOut(duration: _isvisible ? 1.seconds : 5.seconds)),
+                        ),
                 Stack(
                   children: <Widget>[
                     Align(
